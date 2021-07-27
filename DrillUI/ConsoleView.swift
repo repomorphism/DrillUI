@@ -34,9 +34,10 @@ struct ConsoleView: View {
                                     }
                                 }
                             }
+                            .padding(.bottom, 8)
                     }
                 }
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 16))
+                .padding(EdgeInsets(top: 20, leading: 2, bottom: 20, trailing: 16))
             }
             .font(.system(.body, design: .monospaced))
             .background(Color(NSColor(named: "ConsoleBackgroundColor")!))

@@ -12,15 +12,17 @@ import DrillAI
 @main
 struct DrillUIApp: App {
 
-    @State private var state = GameState(garbageCount: 8)
+    @State private var state: GameState = GameState(garbageCount: 8)
+    @State private var legalMoves: [Piece] = []
     @State private var outputs: [ConsoleOutput] = []
+//    let tree: MCTSTree = MCTSTree(initialState: GameState(garbageCount: 8))
 
     var body: some Scene {
         WindowGroup {
             HStack(spacing: 0) {
                 HStack {
                     Spacer()
-                    ControlView(handleControlAction)
+                    ControlView(handleControlAction, legalMoves)
                     Spacer()
                 }
                 ConsoleView(outputs: $outputs)
@@ -38,8 +40,15 @@ struct DrillUIApp: App {
 private extension DrillUIApp {
     func handleControlAction(_ action: ControlView.ActionType) {
         switch action {
-        case .newGame: outputs = [ConsoleOutput("New Game!")]
-        case .step: outputs.append(ConsoleOutput(state.field.debugDescription))
+        case .newGame:
+            state = GameState(garbageCount: 8)
+            legalMoves = state.getLegalActions()
+            outputs = [ConsoleOutput("New Game!")]
+            outputs.append(ConsoleOutput(state.field.debugDescription))
+        case .step(let piece):
+            state = state.getNextState(for: piece)
+            legalMoves = state.getLegalActions()
+            outputs.append(ConsoleOutput(state.field.debugDescription))
         }
     }
 }
