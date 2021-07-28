@@ -30,16 +30,20 @@ struct ConsoleView: View {
                             .onAppear {
                                 if outputs.last?.id == output.id {
                                     withAnimation {
-                                        scrollView.scrollTo(output.id, anchor: .top)
+                                        scrollView.scrollTo("bottomSpacer")
                                     }
                                 }
                             }
                             .padding(.bottom, 8)
                     }
+                    Spacer()
+                        .frame(height: 10)
+                        .id("bottomSpacer")
                 }
                 .padding(EdgeInsets(top: 20, leading: 2, bottom: 20, trailing: 16))
             }
             .font(.system(.body, design: .monospaced))
+            .foregroundColor(.init(white: 0.95))
             .background(Color(NSColor(named: "ConsoleBackgroundColor")!))
         }
     }
