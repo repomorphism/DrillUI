@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 
 
-struct ConsoleOutput: Identifiable {
+struct ConsoleOutput: Identifiable, Equatable {
     let id: UUID = .init()
     let content: String
 
@@ -16,6 +17,7 @@ struct ConsoleOutput: Identifiable {
         self.content = content
     }
 }
+
 
 struct ConsoleView: View {
 
@@ -27,13 +29,6 @@ struct ConsoleView: View {
                 LazyVStack(alignment: .leading) {
                     ForEach(outputs) { output in
                         Text(output.content)
-                            .onAppear {
-                                if outputs.last?.id == output.id {
-                                    withAnimation {
-                                        scrollView.scrollTo("bottomSpacer")
-                                    }
-                                }
-                            }
                             .padding(.bottom, 8)
                     }
                     Spacer()
@@ -42,15 +37,13 @@ struct ConsoleView: View {
                 }
                 .padding(EdgeInsets(top: 20, leading: 2, bottom: 20, trailing: 16))
             }
+            .onChange(of: outputs) { val in
+                scrollView.scrollTo("bottomSpacer")
+            }
             .font(.system(.body, design: .monospaced))
             .foregroundColor(.init(white: 0.95))
-            .background(Color(NSColor(named: "ConsoleBackgroundColor")!))
+            .background(Color("ConsoleBackgroundColor"))
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConsoleView(outputs: .constant([ConsoleOutput("Hello world")]))
-    }
-}

@@ -13,6 +13,11 @@
 		DA14BBA326B15E2E00BBB4FE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */; };
 		DA14BBAD26B15E2E00BBB4FE /* DrillUI_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */; };
 		DA14BBB726B15E2E00BBB4FE /* DrillUI_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BBB626B15E2E00BBB4FE /* DrillUI_iOSUITests.swift */; };
+		DA14BBC326B15EF300BBB4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BBC226B15EF300BBB4FE /* Assets.xcassets */; };
+		DA14BBC426B15F0F00BBB4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BBC226B15EF300BBB4FE /* Assets.xcassets */; };
+		DA14BBC526B15F1500BBB4FE /* ConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FE00026B07C7B002A8354 /* ConsoleView.swift */; };
+		DA14BBC626B15F1800BBB4FE /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FDFFF26B07C7B002A8354 /* ControlView.swift */; };
+		DA14BBC826B161F200BBB4FE /* DrillAI in Frameworks */ = {isa = PBXBuildFile; productRef = DA14BBC726B161F200BBB4FE /* DrillAI */; };
 		DA5FDFD826B07BF9002A8354 /* DrillUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */; };
 		DA5FDFDC26B07BFD002A8354 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */; };
 		DA5FDFDF26B07BFD002A8354 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDE26B07BFD002A8354 /* Preview Assets.xcassets */; };
@@ -65,6 +70,7 @@
 		DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSTests.swift; sourceTree = "<group>"; };
 		DA14BBB226B15E2E00BBB4FE /* DrillUI_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrillUI_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA14BBB626B15E2E00BBB4FE /* DrillUI_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSUITests.swift; sourceTree = "<group>"; };
+		DA14BBC226B15EF300BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA5FDFD426B07BF9002A8354 /* DrillUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUIApp.swift; sourceTree = "<group>"; };
 		DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA14BBC826B161F200BBB4FE /* DrillAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,14 +168,25 @@
 			path = DrillUI_iOSUITests;
 			sourceTree = "<group>";
 		};
+		DA14BBC126B15EB200BBB4FE /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				DA5FE00026B07C7B002A8354 /* ConsoleView.swift */,
+				DA5FDFFF26B07C7B002A8354 /* ControlView.swift */,
+				DA14BBC226B15EF300BBB4FE /* Assets.xcassets */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		DA5FDFCB26B07BF9002A8354 = {
 			isa = PBXGroup;
 			children = (
 				DA5FE00526B07CBC002A8354 /* Packages */,
+				DA14BBC126B15EB200BBB4FE /* Shared */,
 				DA5FDFD626B07BF9002A8354 /* DrillUI */,
+				DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */,
 				DA5FDFE726B07BFD002A8354 /* DrillUITests */,
 				DA5FDFF126B07BFD002A8354 /* DrillUIUITests */,
-				DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */,
 				DA14BBAB26B15E2E00BBB4FE /* DrillUI_iOSTests */,
 				DA14BBB526B15E2E00BBB4FE /* DrillUI_iOSUITests */,
 				DA5FDFD526B07BF9002A8354 /* Products */,
@@ -192,8 +210,6 @@
 		DA5FDFD626B07BF9002A8354 /* DrillUI */ = {
 			isa = PBXGroup;
 			children = (
-				DA5FE00026B07C7B002A8354 /* ConsoleView.swift */,
-				DA5FDFFF26B07C7B002A8354 /* ControlView.swift */,
 				DA5FE00126B07C7B002A8354 /* WindowAccessor.swift */,
 				DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */,
 				DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */,
@@ -257,6 +273,9 @@
 			dependencies = (
 			);
 			name = DrillUI_iOS;
+			packageProductDependencies = (
+				DA14BBC726B161F200BBB4FE /* DrillAI */,
+			);
 			productName = DrillUI_iOS;
 			productReference = DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -416,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA14BBA326B15E2E00BBB4FE /* Preview Assets.xcassets in Resources */,
+				DA14BBC426B15F0F00BBB4FE /* Assets.xcassets in Resources */,
 				DA14BBA026B15E2E00BBB4FE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA5FDFDF26B07BFD002A8354 /* Preview Assets.xcassets in Resources */,
+				DA14BBC326B15EF300BBB4FE /* Assets.xcassets in Resources */,
 				DA5FDFDC26B07BFD002A8354 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,7 +485,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA14BBC626B15F1800BBB4FE /* ControlView.swift in Sources */,
 				DA14BB9E26B15E2700BBB4FE /* ContentView.swift in Sources */,
+				DA14BBC526B15F1500BBB4FE /* ConsoleView.swift in Sources */,
 				DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +575,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -583,6 +607,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1045,6 +1070,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DA14BBC726B161F200BBB4FE /* DrillAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DrillAI;
+		};
 		DA5FE00A26B07D38002A8354 /* DrillAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DrillAI;
