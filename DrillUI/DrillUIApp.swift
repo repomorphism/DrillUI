@@ -12,10 +12,19 @@ import DrillAI
 @main
 struct DrillUIApp: App {
 
-    @State private var state: GameState = GameState(garbageCount: 8)
-    @State private var legalMoves: [Piece] = []
-    @State private var outputs: [ConsoleOutput] = []
-//    let tree: MCTSTree = MCTSTree(initialState: GameState(garbageCount: 8))
+    @State private var state: GameState
+//    @State private var bot: DrillBot<BCTSEvaluator>
+    @State private var legalMoves: [Piece]
+    @State private var outputs: [ConsoleOutput]
+
+    init() {
+        let state = GameState(garbageCount: 8)
+        self.state = state
+//        let evaluator = BCTSEvaluator()
+//        self.bot = DrillBot(initialState: state, evaluator: evaluator)
+        self.legalMoves = state.getLegalActions()
+        self.outputs = [ConsoleOutput("New Game!"), ConsoleOutput(state.field.debugDescription)]
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -45,6 +54,14 @@ private extension DrillUIApp {
             legalMoves = state.getLegalActions()
             outputs = [ConsoleOutput("New Game!")]
             outputs.append(ConsoleOutput(state.field.debugDescription))
+
+        case .botStep:
+            break
+//            bot.makeMoveWithCallback { action in
+//                let message = action?.debugDescription ?? "No move"
+//                outputs.append(ConsoleOutput(message))
+//            }
+
         case .step(let piece):
             state = state.getNextState(for: piece)
             legalMoves = state.getLegalActions()

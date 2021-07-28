@@ -12,6 +12,7 @@ import DrillAI
 struct ControlView: View {
     enum ActionType {
         case newGame
+        case botStep
         case step(Piece)
     }
 
@@ -24,6 +25,8 @@ struct ControlView: View {
             HStack {
                 Spacer()
                 Button("New Game") { controlAction(.newGame) }
+                .padding()
+                Button("Bot Step") { controlAction(.botStep) }
                 .padding()
                 Spacer()
             }
