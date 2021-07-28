@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */; };
+		DA14BB9E26B15E2700BBB4FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BB9D26B15E2700BBB4FE /* ContentView.swift */; };
+		DA14BBA026B15E2E00BBB4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */; };
+		DA14BBA326B15E2E00BBB4FE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */; };
+		DA14BBAD26B15E2E00BBB4FE /* DrillUI_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */; };
+		DA14BBB726B15E2E00BBB4FE /* DrillUI_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BBB626B15E2E00BBB4FE /* DrillUI_iOSUITests.swift */; };
 		DA5FDFD826B07BF9002A8354 /* DrillUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */; };
 		DA5FDFDC26B07BFD002A8354 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */; };
 		DA5FDFDF26B07BFD002A8354 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDE26B07BFD002A8354 /* Preview Assets.xcassets */; };
@@ -19,6 +25,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DA14BBA926B15E2E00BBB4FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA5FDFCC26B07BF9002A8354 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA14BB9826B15E2700BBB4FE;
+			remoteInfo = DrillUI_iOS;
+		};
+		DA14BBB326B15E2E00BBB4FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA5FDFCC26B07BF9002A8354 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA14BB9826B15E2700BBB4FE;
+			remoteInfo = DrillUI_iOS;
+		};
 		DA5FDFE526B07BFD002A8354 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA5FDFCC26B07BF9002A8354 /* Project object */;
@@ -36,6 +56,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSApp.swift; sourceTree = "<group>"; };
+		DA14BB9D26B15E2700BBB4FE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DA14BBA826B15E2E00BBB4FE /* DrillUI_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrillUI_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSTests.swift; sourceTree = "<group>"; };
+		DA14BBB226B15E2E00BBB4FE /* DrillUI_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrillUI_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA14BBB626B15E2E00BBB4FE /* DrillUI_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSUITests.swift; sourceTree = "<group>"; };
 		DA5FDFD426B07BF9002A8354 /* DrillUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUIApp.swift; sourceTree = "<group>"; };
 		DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +80,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DA14BB9626B15E2700BBB4FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA14BBA526B15E2E00BBB4FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA14BBAF26B15E2E00BBB4FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5FDFD126B07BF9002A8354 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,6 +126,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */,
+				DA14BB9D26B15E2700BBB4FE /* ContentView.swift */,
+				DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */,
+				DA14BBA126B15E2E00BBB4FE /* Preview Content */,
+			);
+			path = DrillUI_iOS;
+			sourceTree = "<group>";
+		};
+		DA14BBA126B15E2E00BBB4FE /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DA14BBAB26B15E2E00BBB4FE /* DrillUI_iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */,
+			);
+			path = DrillUI_iOSTests;
+			sourceTree = "<group>";
+		};
+		DA14BBB526B15E2E00BBB4FE /* DrillUI_iOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA14BBB626B15E2E00BBB4FE /* DrillUI_iOSUITests.swift */,
+			);
+			path = DrillUI_iOSUITests;
+			sourceTree = "<group>";
+		};
 		DA5FDFCB26B07BF9002A8354 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +168,9 @@
 				DA5FDFD626B07BF9002A8354 /* DrillUI */,
 				DA5FDFE726B07BFD002A8354 /* DrillUITests */,
 				DA5FDFF126B07BFD002A8354 /* DrillUIUITests */,
+				DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */,
+				DA14BBAB26B15E2E00BBB4FE /* DrillUI_iOSTests */,
+				DA14BBB526B15E2E00BBB4FE /* DrillUI_iOSUITests */,
 				DA5FDFD526B07BF9002A8354 /* Products */,
 				DA5FE00926B07D38002A8354 /* Frameworks */,
 			);
@@ -94,6 +182,9 @@
 				DA5FDFD426B07BF9002A8354 /* DrillUI.app */,
 				DA5FDFE426B07BFD002A8354 /* DrillUITests.xctest */,
 				DA5FDFEE26B07BFD002A8354 /* DrillUIUITests.xctest */,
+				DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */,
+				DA14BBA826B15E2E00BBB4FE /* DrillUI_iOSTests.xctest */,
+				DA14BBB226B15E2E00BBB4FE /* DrillUI_iOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,6 +244,59 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DA14BB9826B15E2700BBB4FE /* DrillUI_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA14BBBE26B15E2E00BBB4FE /* Build configuration list for PBXNativeTarget "DrillUI_iOS" */;
+			buildPhases = (
+				DA14BB9526B15E2700BBB4FE /* Sources */,
+				DA14BB9626B15E2700BBB4FE /* Frameworks */,
+				DA14BB9726B15E2700BBB4FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DrillUI_iOS;
+			productName = DrillUI_iOS;
+			productReference = DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA14BBA726B15E2E00BBB4FE /* DrillUI_iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA14BBBF26B15E2E00BBB4FE /* Build configuration list for PBXNativeTarget "DrillUI_iOSTests" */;
+			buildPhases = (
+				DA14BBA426B15E2E00BBB4FE /* Sources */,
+				DA14BBA526B15E2E00BBB4FE /* Frameworks */,
+				DA14BBA626B15E2E00BBB4FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA14BBAA26B15E2E00BBB4FE /* PBXTargetDependency */,
+			);
+			name = DrillUI_iOSTests;
+			productName = DrillUI_iOSTests;
+			productReference = DA14BBA826B15E2E00BBB4FE /* DrillUI_iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA14BBB126B15E2E00BBB4FE /* DrillUI_iOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA14BBC026B15E2E00BBB4FE /* Build configuration list for PBXNativeTarget "DrillUI_iOSUITests" */;
+			buildPhases = (
+				DA14BBAE26B15E2E00BBB4FE /* Sources */,
+				DA14BBAF26B15E2E00BBB4FE /* Frameworks */,
+				DA14BBB026B15E2E00BBB4FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA14BBB426B15E2E00BBB4FE /* PBXTargetDependency */,
+			);
+			name = DrillUI_iOSUITests;
+			productName = DrillUI_iOSUITests;
+			productReference = DA14BBB226B15E2E00BBB4FE /* DrillUI_iOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		DA5FDFD326B07BF9002A8354 /* DrillUI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA5FDFF626B07BFD002A8354 /* Build configuration list for PBXNativeTarget "DrillUI" */;
@@ -219,6 +363,17 @@
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
+					DA14BB9826B15E2700BBB4FE = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					DA14BBA726B15E2E00BBB4FE = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = DA14BB9826B15E2700BBB4FE;
+					};
+					DA14BBB126B15E2E00BBB4FE = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = DA14BB9826B15E2700BBB4FE;
+					};
 					DA5FDFD326B07BF9002A8354 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -248,11 +403,37 @@
 				DA5FDFD326B07BF9002A8354 /* DrillUI */,
 				DA5FDFE326B07BFD002A8354 /* DrillUITests */,
 				DA5FDFED26B07BFD002A8354 /* DrillUIUITests */,
+				DA14BB9826B15E2700BBB4FE /* DrillUI_iOS */,
+				DA14BBA726B15E2E00BBB4FE /* DrillUI_iOSTests */,
+				DA14BBB126B15E2E00BBB4FE /* DrillUI_iOSUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DA14BB9726B15E2700BBB4FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA14BBA326B15E2E00BBB4FE /* Preview Assets.xcassets in Resources */,
+				DA14BBA026B15E2E00BBB4FE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA14BBA626B15E2E00BBB4FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA14BBB026B15E2E00BBB4FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5FDFD226B07BF9002A8354 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,6 +460,31 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DA14BB9526B15E2700BBB4FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA14BB9E26B15E2700BBB4FE /* ContentView.swift in Sources */,
+				DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA14BBA426B15E2E00BBB4FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA14BBAD26B15E2E00BBB4FE /* DrillUI_iOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA14BBAE26B15E2E00BBB4FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA14BBB726B15E2E00BBB4FE /* DrillUI_iOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5FDFD026B07BF9002A8354 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,6 +515,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DA14BBAA26B15E2E00BBB4FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA14BB9826B15E2700BBB4FE /* DrillUI_iOS */;
+			targetProxy = DA14BBA926B15E2E00BBB4FE /* PBXContainerItemProxy */;
+		};
+		DA14BBB426B15E2E00BBB4FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA14BB9826B15E2700BBB4FE /* DrillUI_iOS */;
+			targetProxy = DA14BBB326B15E2E00BBB4FE /* PBXContainerItemProxy */;
+		};
 		DA5FDFE626B07BFD002A8354 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DA5FDFD326B07BF9002A8354 /* DrillUI */;
@@ -322,6 +538,173 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		DA14BBB826B15E2E00BBB4FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DrillUI_iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = C3TKTY8GP6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DA14BBB926B15E2E00BBB4FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DrillUI_iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = C3TKTY8GP6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA14BBBA26B15E2E00BBB4FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C3TKTY8GP6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrillUI_iOS.app/DrillUI_iOS";
+			};
+			name = Debug;
+		};
+		DA14BBBB26B15E2E00BBB4FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C3TKTY8GP6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrillUI_iOS.app/DrillUI_iOS";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA14BBBC26B15E2E00BBB4FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C3TKTY8GP6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DrillUI_iOS;
+			};
+			name = Debug;
+		};
+		DA14BBBD26B15E2E00BBB4FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C3TKTY8GP6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DrillUI_iOS;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		DA5FDFF426B07BFD002A8354 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -373,6 +756,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -428,6 +812,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -594,6 +979,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DA14BBBE26B15E2E00BBB4FE /* Build configuration list for PBXNativeTarget "DrillUI_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA14BBB826B15E2E00BBB4FE /* Debug */,
+				DA14BBB926B15E2E00BBB4FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA14BBBF26B15E2E00BBB4FE /* Build configuration list for PBXNativeTarget "DrillUI_iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA14BBBA26B15E2E00BBB4FE /* Debug */,
+				DA14BBBB26B15E2E00BBB4FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA14BBC026B15E2E00BBB4FE /* Build configuration list for PBXNativeTarget "DrillUI_iOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA14BBBC26B15E2E00BBB4FE /* Debug */,
+				DA14BBBD26B15E2E00BBB4FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DA5FDFCF26B07BF9002A8354 /* Build configuration list for PBXProject "DrillUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
