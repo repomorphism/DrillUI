@@ -14,6 +14,7 @@ struct ControlView: View {
         case newGame(Int)
         case botPlay
         case step(Piece)
+//        case gbotStop
     }
 
     private let controlAction: (ActionType) -> Void
@@ -25,12 +26,14 @@ struct ControlView: View {
             Spacer(minLength: 20)
             HStack {
                 Spacer()
+//                Button("gbot stop") { controlAction(.gbotStop) }
+//                .padding()
                 Button("New Game (10)") { controlAction(.newGame(10)) }
                 .padding()
-                Button("New Game (18)") { controlAction(.newGame(18)) }
-                .padding()
-                Button("New Game (100)") { controlAction(.newGame(100)) }
-                .padding()
+//                Button("New Game (18)") { controlAction(.newGame(18)) }
+//                .padding()
+//                Button("New Game (100)") { controlAction(.newGame(100)) }
+//                .padding()
                 Button("Bot Play") { controlAction(.botPlay) }
                 .padding()
                 Spacer()
