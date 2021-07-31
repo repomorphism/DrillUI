@@ -9,12 +9,16 @@ import SwiftUI
 import DrillAI
 
 
+typealias ActionVisits = MCTSTree<GameState>.ActionVisits
+
+let initialGameLength = 18
+
 @main
 struct DrillAI_iOSApp: App {
 
     @State private var state: GameState
     @State private var bot: DrillBot<BCTSEvaluator>
-    @State private var legalMoves: [Piece]
+    @State private var legalMoves: [ActionVisits]
     @State private var outputs: [ConsoleOutput]
     @State private var highlightedMove: Piece? = nil
 
@@ -22,11 +26,11 @@ struct DrillAI_iOSApp: App {
 
     init() {
 
-        let state = GameState(garbageCount: 8)
+        let state = GameState(garbageCount: initialGameLength)
         self.state = state
         self.evaluator = BCTSEvaluator()
         self.bot = DrillBot(initialState: state, evaluator: evaluator)
-        self.legalMoves = state.getLegalActions()
+        self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
         self.outputs = [ConsoleOutput("New Game!"), ConsoleOutput(state.field.debugDescription)]
     }
 
@@ -55,26 +59,49 @@ struct DrillAI_iOSApp: App {
 private extension DrillAI_iOSApp {
     func handleControlAction(_ action: ControlView.ActionType) {
         switch action {
-        case .newGame:
-            state = GameState(garbageCount: 8)
+        case .newGame(let count):
+            state = GameState(garbageCount: count)
             bot = DrillBot(initialState: state, evaluator: evaluator)
-            legalMoves = state.getLegalActions()
+            legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
+
             outputs = [ConsoleOutput("New Game!")]
             outputs.append(ConsoleOutput(state.field.debugDescription))
 
-        case .botStep:
+        case .botPlay:
             highlightedMove = nil
-            bot.makeMoveWithCallback { action in
-//                let message = action?.debugDescription ?? "No move"
-//                outputs.append(ConsoleOutput(message))
-                highlightedMove = action
+            Task {
+                let sortedActions = await bot.thinkTillEnough()
+                legalMoves = sortedActions
+                highlightedMove = legalMoves.first?.action
+
+                // Saves me a click, but this is dangerous (race condition)
+                if let bestMove = legalMoves.first {
+                    await Task.sleep(750_000_000)
+                    handleControlAction(.step(bestMove.action))
+                    handleControlAction(.botPlay)
+                }
             }
 
         case .step(let piece):
-            state = state.getNextState(for: piece)
-            bot = DrillBot(initialState: state, evaluator: evaluator)
-            legalMoves = state.getLegalActions()
-            outputs.append(ConsoleOutput(state.field.debugDescription))
+            Task {
+                state = await bot.advance(with: piece)
+                let sortedActions = await bot.getSortedActions()
+                legalMoves = sortedActions
+//                highlightedMove = legalMoves.first?.action
+//                let message = "\(state.field.debugDescription)\nStep:\(state.dropCount)"
+                let message = """
+                    \(Date.now)
+                    \(state.field.debugDescription)
+                    Step: \(state.dropCount), cleared: \(state.garbageCleared)
+                    """
+                outputs.append(ConsoleOutput(message))
+            }
+            
+//            state = state.getNextState(for: piece)
+//            bot = DrillBot(initialState: state, evaluator: evaluator)
+//            legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
+//
+//            outputs.append(ConsoleOutput(state.field.debugDescription))
         }
     }
 }
