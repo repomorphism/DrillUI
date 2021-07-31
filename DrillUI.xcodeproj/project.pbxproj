@@ -52,7 +52,6 @@
 		DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA14BBA826B15E2E00BBB4FE /* DrillUI_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrillUI_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSTests.swift; sourceTree = "<group>"; };
-		DA14BBB626B15E2E00BBB4FE /* DrillUI_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSUITests.swift; sourceTree = "<group>"; };
 		DA14BBC226B15EF300BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA5FDFD426B07BF9002A8354 /* DrillUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUIApp.swift; sourceTree = "<group>"; };
@@ -60,7 +59,6 @@
 		DA5FDFDE26B07BFD002A8354 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA5FDFE426B07BFD002A8354 /* DrillUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrillUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5FDFE826B07BFD002A8354 /* DrillUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUITests.swift; sourceTree = "<group>"; };
-		DA5FDFF226B07BFD002A8354 /* DrillUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUIUITests.swift; sourceTree = "<group>"; };
 		DA5FDFFF26B07C7B002A8354 /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		DA5FE00026B07C7B002A8354 /* ConsoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleView.swift; sourceTree = "<group>"; };
 		DA5FE00126B07C7B002A8354 /* WindowAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAccessor.swift; sourceTree = "<group>"; };
@@ -128,14 +126,6 @@
 			path = DrillUI_iOSTests;
 			sourceTree = "<group>";
 		};
-		DA14BBB526B15E2E00BBB4FE /* DrillUI_iOSUITests */ = {
-			isa = PBXGroup;
-			children = (
-				DA14BBB626B15E2E00BBB4FE /* DrillUI_iOSUITests.swift */,
-			);
-			path = DrillUI_iOSUITests;
-			sourceTree = "<group>";
-		};
 		DA14BBC126B15EB200BBB4FE /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,9 +144,7 @@
 				DA5FDFD626B07BF9002A8354 /* DrillUI */,
 				DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */,
 				DA5FDFE726B07BFD002A8354 /* DrillUITests */,
-				DA5FDFF126B07BFD002A8354 /* DrillUIUITests */,
 				DA14BBAB26B15E2E00BBB4FE /* DrillUI_iOSTests */,
-				DA14BBB526B15E2E00BBB4FE /* DrillUI_iOSUITests */,
 				DA5FDFD526B07BF9002A8354 /* Products */,
 				DA5FE00926B07D38002A8354 /* Frameworks */,
 			);
@@ -198,14 +186,6 @@
 				DA5FDFE826B07BFD002A8354 /* DrillUITests.swift */,
 			);
 			path = DrillUITests;
-			sourceTree = "<group>";
-		};
-		DA5FDFF126B07BFD002A8354 /* DrillUIUITests */ = {
-			isa = PBXGroup;
-			children = (
-				DA5FDFF226B07BFD002A8354 /* DrillUIUITests.swift */,
-			);
-			path = DrillUIUITests;
 			sourceTree = "<group>";
 		};
 		DA5FE00526B07CBC002A8354 /* Packages */ = {
