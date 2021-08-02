@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */; };
-		DA14BB9E26B15E2700BBB4FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BB9D26B15E2700BBB4FE /* ContentView.swift */; };
 		DA14BBA026B15E2E00BBB4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */; };
 		DA14BBA326B15E2E00BBB4FE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */; };
 		DA14BBAD26B15E2E00BBB4FE /* DrillUI_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */; };
@@ -17,6 +16,8 @@
 		DA14BBC526B15F1500BBB4FE /* ConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FE00026B07C7B002A8354 /* ConsoleView.swift */; };
 		DA14BBC626B15F1800BBB4FE /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FDFFF26B07C7B002A8354 /* ControlView.swift */; };
 		DA14BBC826B161F200BBB4FE /* DrillAI in Frameworks */ = {isa = PBXBuildFile; productRef = DA14BBC726B161F200BBB4FE /* DrillAI */; };
+		DA1F5B9A26B829A100FC8F70 /* FieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1F5B9926B829A100FC8F70 /* FieldView.swift */; };
+		DA1F5B9C26B8346E00FC8F70 /* GridLinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */; };
 		DA5FDFD826B07BF9002A8354 /* DrillUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */; };
 		DA5FDFDC26B07BFD002A8354 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */; };
 		DA5FDFDF26B07BFD002A8354 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDE26B07BFD002A8354 /* Preview Assets.xcassets */; };
@@ -47,12 +48,13 @@
 /* Begin PBXFileReference section */
 		DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSApp.swift; sourceTree = "<group>"; };
-		DA14BB9D26B15E2700BBB4FE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA14BBA826B15E2E00BBB4FE /* DrillUI_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrillUI_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA14BBAC26B15E2E00BBB4FE /* DrillUI_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSTests.swift; sourceTree = "<group>"; };
 		DA14BBC226B15EF300BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA1F5B9926B829A100FC8F70 /* FieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldView.swift; sourceTree = "<group>"; };
+		DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLinesView.swift; sourceTree = "<group>"; };
 		DA5FDFD426B07BF9002A8354 /* DrillUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUIApp.swift; sourceTree = "<group>"; };
 		DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,7 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */,
-				DA14BB9D26B15E2700BBB4FE /* ContentView.swift */,
+				DA1F5B9926B829A100FC8F70 /* FieldView.swift */,
+				DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */,
 				DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */,
 				DA14BBA126B15E2E00BBB4FE /* Preview Content */,
 			);
@@ -371,8 +374,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA1F5B9C26B8346E00FC8F70 /* GridLinesView.swift in Sources */,
 				DA14BBC626B15F1800BBB4FE /* ControlView.swift in Sources */,
-				DA14BB9E26B15E2700BBB4FE /* ContentView.swift in Sources */,
+				DA1F5B9A26B829A100FC8F70 /* FieldView.swift in Sources */,
 				DA14BBC526B15F1500BBB4FE /* ConsoleView.swift in Sources */,
 				DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */,
 			);

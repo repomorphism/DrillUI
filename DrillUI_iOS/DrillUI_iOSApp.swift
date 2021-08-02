@@ -38,11 +38,14 @@ struct DrillAI_iOSApp: App {
             HStack(spacing: 0) {
                 HStack {
                     Spacer()
-                    ControlView(controlAction: handleControlAction,
-                                legalMoves: $legalMoves,
-                                highlightedMove: $highlightedMove)
+                    FieldView(field: GameState(garbageCount: 8).field)
+                        .frame(maxHeight: .infinity)
+//                    ControlView(controlAction: handleControlAction,
+//                                legalMoves: $legalMoves,
+//                                highlightedMove: $highlightedMove)
                     Spacer()
                 }
+                .background(Color(white: 0.05))
                 ConsoleView(outputs: $outputs)
                     .frame(width: 300)
                     .foregroundColor(.init(white: 0.9))
