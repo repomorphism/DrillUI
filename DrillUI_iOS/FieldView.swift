@@ -13,7 +13,7 @@ struct FieldView: View {
     let field: Field
     var body: some View {
         ZStack {
-            GridLinesView(rows: 20, columns: 10)
+            GridLinesView()
                 .padding(2)
             Rectangle()
                 .strokeBorder(Color(white: 0.75), lineWidth: 2.0)
