@@ -36,20 +36,25 @@ struct DrillAI_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             HStack(spacing: 0) {
-                HStack {
+                Spacer()
+                VStack {
+                    GameView()
                     Spacer()
-                    FieldView(field: GameState(garbageCount: 8).field)
-                        .frame(maxHeight: .infinity)
+                }
+                .padding(20)
+//                HStack {
+//                    Spacer()
+//                        .frame(maxHeight: .infinity)
 //                    ControlView(controlAction: handleControlAction,
 //                                legalMoves: $legalMoves,
 //                                highlightedMove: $highlightedMove)
-                    Spacer()
-                }
-                .background(Color(white: 0.05))
+//                    Spacer()
+//                }
                 ConsoleView(outputs: $outputs)
                     .frame(width: 300)
                     .foregroundColor(.init(white: 0.9))
             }
+            .background(Color(white: 0.05))
             .ignoresSafeArea()
             .onReceive(timer) { _ in
                 Task {

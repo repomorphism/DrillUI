@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA057D7A26B85C390089B34A /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA057D7926B85C390089B34A /* GameView.swift */; };
+		DA057D7C26B8667B0089B34A /* HoldPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA057D7B26B8667B0089B34A /* HoldPieceView.swift */; };
 		DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */; };
 		DA14BBA026B15E2E00BBB4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */; };
 		DA14BBA326B15E2E00BBB4FE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */; };
@@ -26,6 +28,7 @@
 		DA5FE00326B07C7B002A8354 /* ConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FE00026B07C7B002A8354 /* ConsoleView.swift */; };
 		DA5FE00426B07C7B002A8354 /* WindowAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FE00126B07C7B002A8354 /* WindowAccessor.swift */; };
 		DA5FE00B26B07D38002A8354 /* DrillAI in Frameworks */ = {isa = PBXBuildFile; productRef = DA5FE00A26B07D38002A8354 /* DrillAI */; };
+		DA98926F26B8697E00712571 /* NextPiecesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98926E26B8697E00712571 /* NextPiecesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA057D7926B85C390089B34A /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		DA057D7B26B8667B0089B34A /* HoldPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldPieceView.swift; sourceTree = "<group>"; };
 		DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSApp.swift; sourceTree = "<group>"; };
 		DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +70,7 @@
 		DA5FE00026B07C7B002A8354 /* ConsoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleView.swift; sourceTree = "<group>"; };
 		DA5FE00126B07C7B002A8354 /* WindowAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAccessor.swift; sourceTree = "<group>"; };
 		DA5FE00626B07CBC002A8354 /* DrillAI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DrillAI; path = ../DrillAI; sourceTree = "<group>"; };
+		DA98926E26B8697E00712571 /* NextPiecesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPiecesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +110,11 @@
 		DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DA98926E26B8697E00712571 /* NextPiecesView.swift */,
+				DA057D7B26B8667B0089B34A /* HoldPieceView.swift */,
 				DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */,
 				DA1F5B9926B829A100FC8F70 /* FieldView.swift */,
+				DA057D7926B85C390089B34A /* GameView.swift */,
 				DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */,
 				DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */,
 				DA14BBA126B15E2E00BBB4FE /* Preview Content */,
@@ -374,11 +383,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA98926F26B8697E00712571 /* NextPiecesView.swift in Sources */,
 				DA1F5B9C26B8346E00FC8F70 /* GridLinesView.swift in Sources */,
 				DA14BBC626B15F1800BBB4FE /* ControlView.swift in Sources */,
 				DA1F5B9A26B829A100FC8F70 /* FieldView.swift in Sources */,
 				DA14BBC526B15F1500BBB4FE /* ConsoleView.swift in Sources */,
+				DA057D7A26B85C390089B34A /* GameView.swift in Sources */,
 				DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */,
+				DA057D7C26B8667B0089B34A /* HoldPieceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
