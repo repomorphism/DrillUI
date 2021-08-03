@@ -20,6 +20,13 @@ struct NextPiecesView: View {
 
 struct PreviewPiecesView_Previews: PreviewProvider {
     static var previews: some View {
-        NextPiecesView()
+        VStack {
+            NextPiecesView()
+                .background(Color(white: 0.05))
+            Spacer()
+        }
+            .frame(width: 300, height: 1000)
+            .background(Color(white: 0.25))
+//            .previewLayout(.sizeThatFits)
     }
 }

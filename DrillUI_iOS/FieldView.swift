@@ -25,5 +25,8 @@ struct FieldView: View {
 struct FieldView_Previews: PreviewProvider {
     static var previews: some View {
         FieldView(field: GameState(garbageCount: 8).field)
+            .background(Color(white: 0.05))
+//            .previewInterfaceOrientation(.landscapeRight)
+            .previewLayout(.sizeThatFits)
     }
 }

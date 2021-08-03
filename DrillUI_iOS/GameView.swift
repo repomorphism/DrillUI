@@ -16,7 +16,7 @@ struct GameView: View {
 
             // Hold piece column
             VStack {
-                HoldPieceView()
+                HoldPieceView(type: .L)
             }
             .aspectRatio(0.2, contentMode: .fit)
 
@@ -41,5 +41,8 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
+            .background(Color(white: 0.05))
+//            .previewInterfaceOrientation(.landscapeRight)
+            .previewLayout(.sizeThatFits)
     }
 }
