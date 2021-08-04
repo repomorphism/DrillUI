@@ -12,40 +12,31 @@ import DrillAI
 struct ControlView: View {
     enum ActionType {
         case newGame(Int)
-        case botPlay
-        case step(Piece)
-        case gbotStop
+        case botStartThinking
+        case botStopThinking
+        case play(Piece)
     }
 
-    private let controlAction: (ActionType) -> Void
-    @Binding private var legalMoves: [ActionVisits]
-    @Binding private var highlightedMove: Piece?
+    let controlAction: (ActionType) -> Void
+    let legalMoves: [ActionVisits]
+    let highlightedMove: Piece?
 
     var body: some View {
         VStack(spacing: 8) {
             Spacer(minLength: 20)
-            HStack {
-                Spacer()
-//                Button("New Game (3)") { controlAction(.newGame(3)) }
-//                .padding()
+            VStack(spacing: 4) {
                 Button("New Game (10)") { controlAction(.newGame(10)) }
-                .padding()
                 Button("New Game (18)") { controlAction(.newGame(18)) }
-                .padding()
-//                Button("New Game (100)") { controlAction(.newGame(100)) }
-//                .padding()
-                Button("Bot Play") { controlAction(.botPlay) }
-                .padding()
-                Button("gbot stop") { controlAction(.gbotStop) }
-                .padding()
-                Spacer()
+                Button("Bot Play") { controlAction(.botStartThinking) }
+                Button("Bot Stop") { controlAction(.botStopThinking) }
             }
+            .foregroundColor(.blue)
             ScrollViewReader { scrollView in
                 ScrollView {
                     VStack {
                         ForEach(legalMoves, id: \.action.code) { actionVisits in
                             Button {
-                                controlAction(.step(actionVisits.action))
+                                controlAction(.play(actionVisits.action))
                             } label: {
                                 HStack {
                                     Text("\(actionVisits.visits)")
@@ -80,14 +71,6 @@ struct ControlView: View {
             }
         }
     }
-
-    init(controlAction: ((ActionType) -> Void)? = nil,
-         legalMoves: Binding<[ActionVisits]> = .constant([]),
-         highlightedMove: Binding<Piece?> = .constant(nil)) {
-        self.controlAction = controlAction ?? { _ in }
-        self._legalMoves = legalMoves
-        self._highlightedMove = highlightedMove
-    }
 }
 
 
@@ -100,6 +83,6 @@ extension MCTSTree.ActionVisits: Equatable where State == GameState {
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView()
+        ControlView(controlAction: { _ in }, legalMoves: [], highlightedMove: nil)
     }
 }

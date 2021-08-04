@@ -29,6 +29,10 @@
 		DA5FE00426B07C7B002A8354 /* WindowAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FE00126B07C7B002A8354 /* WindowAccessor.swift */; };
 		DA5FE00B26B07D38002A8354 /* DrillAI in Frameworks */ = {isa = PBXBuildFile; productRef = DA5FE00A26B07D38002A8354 /* DrillAI */; };
 		DA98926F26B8697E00712571 /* NextPiecesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98926E26B8697E00712571 /* NextPiecesView.swift */; };
+		DABBD87826B9CA33001B0E28 /* GameplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABBD87726B9CA33001B0E28 /* GameplayController.swift */; };
+		DABBD87A26B9D0C0001B0E28 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABBD87926B9D0C0001B0E28 /* ContentView.swift */; };
+		DAC37FEE26B994110095B653 /* FieldCellsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC37FED26B994110095B653 /* FieldCellsView.swift */; };
+		DAC37FF026B994890095B653 /* DisplayField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC37FEF26B994890095B653 /* DisplayField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +55,7 @@
 /* Begin PBXFileReference section */
 		DA057D7926B85C390089B34A /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		DA057D7B26B8667B0089B34A /* HoldPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldPieceView.swift; sourceTree = "<group>"; };
-		DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA14BB9926B15E2700BBB4FE /* DrillUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUI_iOSApp.swift; sourceTree = "<group>"; };
 		DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA14BBA226B15E2E00BBB4FE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -71,6 +75,10 @@
 		DA5FE00126B07C7B002A8354 /* WindowAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAccessor.swift; sourceTree = "<group>"; };
 		DA5FE00626B07CBC002A8354 /* DrillAI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DrillAI; path = ../DrillAI; sourceTree = "<group>"; };
 		DA98926E26B8697E00712571 /* NextPiecesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPiecesView.swift; sourceTree = "<group>"; };
+		DABBD87726B9CA33001B0E28 /* GameplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayController.swift; sourceTree = "<group>"; };
+		DABBD87926B9D0C0001B0E28 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DAC37FED26B994110095B653 /* FieldCellsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldCellsView.swift; sourceTree = "<group>"; };
+		DAC37FEF26B994890095B653 /* DisplayField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +121,11 @@
 				DA98926E26B8697E00712571 /* NextPiecesView.swift */,
 				DA057D7B26B8667B0089B34A /* HoldPieceView.swift */,
 				DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */,
+				DABBD87926B9D0C0001B0E28 /* ContentView.swift */,
+				DABBD87726B9CA33001B0E28 /* GameplayController.swift */,
 				DA1F5B9926B829A100FC8F70 /* FieldView.swift */,
+				DAC37FED26B994110095B653 /* FieldCellsView.swift */,
+				DAC37FEF26B994890095B653 /* DisplayField.swift */,
 				DA057D7926B85C390089B34A /* GameView.swift */,
 				DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */,
 				DA14BB9F26B15E2E00BBB4FE /* Assets.xcassets */,
@@ -167,7 +179,7 @@
 			children = (
 				DA5FDFD426B07BF9002A8354 /* DrillUI.app */,
 				DA5FDFE426B07BFD002A8354 /* DrillUITests.xctest */,
-				DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */,
+				DA14BB9926B15E2700BBB4FE /* DrillUI.app */,
 				DA14BBA826B15E2E00BBB4FE /* DrillUI_iOSTests.xctest */,
 			);
 			name = Products;
@@ -235,7 +247,7 @@
 				DA14BBC726B161F200BBB4FE /* DrillAI */,
 			);
 			productName = DrillUI_iOS;
-			productReference = DA14BB9926B15E2700BBB4FE /* DrillUI_iOS.app */;
+			productReference = DA14BB9926B15E2700BBB4FE /* DrillUI.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DA14BBA726B15E2E00BBB4FE /* DrillUI_iOSTests */ = {
@@ -384,12 +396,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA98926F26B8697E00712571 /* NextPiecesView.swift in Sources */,
+				DAC37FF026B994890095B653 /* DisplayField.swift in Sources */,
+				DABBD87A26B9D0C0001B0E28 /* ContentView.swift in Sources */,
 				DA1F5B9C26B8346E00FC8F70 /* GridLinesView.swift in Sources */,
+				DAC37FEE26B994110095B653 /* FieldCellsView.swift in Sources */,
 				DA14BBC626B15F1800BBB4FE /* ControlView.swift in Sources */,
 				DA1F5B9A26B829A100FC8F70 /* FieldView.swift in Sources */,
 				DA14BBC526B15F1500BBB4FE /* ConsoleView.swift in Sources */,
 				DA057D7A26B85C390089B34A /* GameView.swift in Sources */,
 				DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */,
+				DABBD87826B9CA33001B0E28 /* GameplayController.swift in Sources */,
 				DA057D7C26B8667B0089B34A /* HoldPieceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,7 +477,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DrillUI;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -493,7 +509,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mathemusician.DrillUI-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DrillUI;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

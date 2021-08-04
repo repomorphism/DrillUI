@@ -16,85 +16,18 @@ private let initialGameLength = 10
 @main
 struct DrillAI_iOSApp: App {
 
-    @State private var legalMoves: [ActionVisits]
-    @State private var outputs: [ConsoleOutput]
-    @State private var highlightedMove: Piece? = nil
-    @State private var gbot: GeneratorBot<BCTSEvaluator>
-
-    private let timer = Timer.publish(every: 1.0, on: .main, in: .default).autoconnect()
+    private let controller: GameplayController
 
     init() {
-
-        let state = GameState(garbageCount: initialGameLength)
-        self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
-        self.outputs = [ConsoleOutput("New Game!"), ConsoleOutput(state.field.debugDescription)]
-
-        let evaluator = BCTSEvaluator()
-        self.gbot = GeneratorBot(initialState: state, evaluator: evaluator)
+        self.controller = GameplayController()
     }
 
     var body: some Scene {
         WindowGroup {
-            HStack(spacing: 0) {
-                Spacer()
-                VStack {
-                    GameView()
-                    Spacer()
-                }
-                .padding(20)
-//                HStack {
-//                    Spacer()
-//                        .frame(maxHeight: .infinity)
-//                    ControlView(controlAction: handleControlAction,
-//                                legalMoves: $legalMoves,
-//                                highlightedMove: $highlightedMove)
-//                    Spacer()
-//                }
-                ConsoleView(outputs: $outputs)
-                    .frame(width: 300)
-                    .foregroundColor(.init(white: 0.9))
-            }
-            .background(Color(white: 0.05))
-            .ignoresSafeArea()
-            .onReceive(timer) { _ in
-                Task {
-                    legalMoves = await gbot.getActions()
-                }
-            }
+            ContentView()
+                .environmentObject(controller)
         }
     }
 }
 
 
-private extension DrillAI_iOSApp {
-    func handleControlAction(_ action: ControlView.ActionType) {
-        switch action {
-        case .newGame(let count):
-            let state = GameState(garbageCount: count)
-            let evaluator = BCTSEvaluator()
-            gbot = GeneratorBot(initialState: state, evaluator: evaluator)
-
-            legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
-            outputs = [ConsoleOutput("New Game!"), ConsoleOutput(state.field.debugDescription)]
-
-        case .botPlay:
-            gbot.startThinking()
-
-        case .step(let piece):
-            gbot.stopThinking()
-            Task {
-                let state = await gbot.advance(with: piece)
-                legalMoves = await gbot.getActions()
-                gbot.startThinking()
-                let message = """
-                    \(Date.now)
-                    \(state.field.debugDescription)
-                    Step: \(state.dropCount), cleared: \(state.garbageCleared)
-                    """
-                outputs.append(ConsoleOutput(message))
-            }
-        case .gbotStop:
-            gbot.stopThinking()
-        }
-    }
-}

@@ -62,7 +62,7 @@ private extension DrillUIApp {
 //                outputs.append(ConsoleOutput(message))
 //            }
 
-        case .step(let piece):
+        case .play(let piece):
             state = state.getNextState(for: piece)
             legalMoves = state.getLegalActions()
             outputs.append(ConsoleOutput(state.field.debugDescription))

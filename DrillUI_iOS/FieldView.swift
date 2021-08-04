@@ -15,6 +15,8 @@ struct FieldView: View {
         ZStack {
             GridLinesView()
                 .padding(2)
+            FieldCellsView(field: DisplayField(from: field))
+                .padding(2)
             Rectangle()
                 .strokeBorder(Color(white: 0.75), lineWidth: 2.0)
         }

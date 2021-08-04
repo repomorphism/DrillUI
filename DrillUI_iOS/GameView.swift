@@ -10,18 +10,21 @@ import DrillAI
 
 
 struct GameView: View {
+
+    let state: GameState
+
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Spacer()
 
             // Hold piece column
             VStack {
-                HoldPieceView(type: .L)
+                HoldPieceView(type: state.hold)
             }
             .aspectRatio(0.2, contentMode: .fit)
 
             // Game field column
-            FieldView(field: GameState(garbageCount: 8).field)
+            FieldView(field: state.field)
                 .layoutPriority(1)
 
             // Preview piece column
@@ -40,7 +43,7 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(state: GameState(garbageCount: 4))
             .background(Color(white: 0.05))
 //            .previewInterfaceOrientation(.landscapeRight)
             .previewLayout(.sizeThatFits)

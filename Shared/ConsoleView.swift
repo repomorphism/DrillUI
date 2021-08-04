@@ -21,7 +21,7 @@ struct ConsoleOutput: Identifiable, Equatable {
 
 struct ConsoleView: View {
 
-    @Binding var outputs: [ConsoleOutput]
+    var outputs: [ConsoleOutput]
 
     var body: some View {
         ScrollViewReader { scrollView in
