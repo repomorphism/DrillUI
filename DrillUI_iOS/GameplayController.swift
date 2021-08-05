@@ -15,6 +15,9 @@ final class GameplayController: ObservableObject {
     @Published var state: GameState
     @Published var legalMoves: [ActionVisits] = []
 
+    // Don't need to @Publish this because it's tied with state's change
+    var displayField: DisplayField
+
     var field: Field {
         state.field
     }
@@ -27,13 +30,15 @@ final class GameplayController: ObservableObject {
         let evaluator = BCTSEvaluator()
         self.state = state
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
+        self.displayField = DisplayField(from: state.field)
     }
 
     func startNewGame(garbageCount count: Int) {
-        let state = GameState(garbageCount: count)
+        let newState = GameState(garbageCount: count)
         let evaluator = BCTSEvaluator()
-        self.state = state
-        self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
+        state = newState
+        bot = GeneratorBot(initialState: state, evaluator: evaluator)
+        displayField = DisplayField(from: state.field)
         legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
     }
 
@@ -53,7 +58,9 @@ final class GameplayController: ObservableObject {
         Task { [weak self] in
             let newState = await bot.advance(with: piece)
             let legalMoves = await self?.bot.getActions()
-            await self?.updateValues(state: newState, legalMoves: legalMoves)
+            await self?.updateValues(state: newState,
+                                     legalMoves: legalMoves,
+                                     piece: piece)
             if isThinking {
                 self?.startThinking()
             }
@@ -62,13 +69,25 @@ final class GameplayController: ObservableObject {
 }
 
 private extension GameplayController {
-    func updateValues(state: GameState? = nil, legalMoves: [ActionVisits]? = nil) async {
+    func updateValues(state: GameState? = nil,
+                      legalMoves: [ActionVisits]? = nil,
+                      piece: Piece? = nil) async {
+        let newDisplayField: DisplayField?
+        if let state = state, let piece = piece {
+            newDisplayField = displayField.nextDisplayField(placing: piece, matching: state.field)
+        } else {
+            newDisplayField = nil
+        }
+
         await MainActor.run { [weak self] in
             if let state = state {
                 self?.state = state
             }
             if let legalMoves = legalMoves {
                 self?.legalMoves = legalMoves
+            }
+            if let displayField = newDisplayField {
+                self?.displayField = displayField
             }
         }
     }

@@ -19,14 +19,14 @@ struct ContentView: View {
         HStack(spacing: 0) {
             Spacer(minLength: 0)
             VStack {
-                GameView(state: controller.state)
+                GameView(state: controller.state,
+                         displayField: controller.displayField)
                 Spacer(minLength: 0)
             }
             .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
             Spacer(minLength: 0)
             ControlView(controlAction: handleControlAction,
-                        legalMoves: controller.legalMoves,
-                        highlightedMove: nil)
+                        legalMoves: controller.legalMoves)
                 .frame(width: 300)
                 .background(.black)
                 .foregroundColor(.init(white: 0.9))

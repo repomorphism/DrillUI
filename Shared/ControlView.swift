@@ -19,7 +19,6 @@ struct ControlView: View {
 
     let controlAction: (ActionType) -> Void
     let legalMoves: [ActionVisits]
-    let highlightedMove: Piece?
 
     var body: some View {
         VStack(spacing: 8) {
@@ -44,7 +43,6 @@ struct ControlView: View {
                                         .frame(maxWidth: .infinity)
                                         .overlay(RoundedRectangle(cornerRadius: 16)
                                                     .stroke(Color.gray, lineWidth: 1))
-                                        .background(actionVisits.action == highlightedMove ? Color.yellow : Color.clear)
                                         .cornerRadius(16)
                                 }
                             }
@@ -54,20 +52,13 @@ struct ControlView: View {
                     }
                     .font(.system(.body, design: .monospaced))
                 }
-                .onChange(of: highlightedMove) { move in
-                    if let move = move {
-                        withAnimation {
-                            scrollView.scrollTo(move.code)
-                        }
-                    }
-                }
-                .onChange(of: legalMoves) { _ in
-                    if let firstMove = legalMoves.first {
-                        withAnimation {
-                            scrollView.scrollTo(firstMove.action.code)
-                        }
-                    }
-                }
+//                .onChange(of: legalMoves) { _ in
+//                    if let firstMove = legalMoves.first {
+//                        withAnimation {
+//                            scrollView.scrollTo(firstMove.action.code)
+//                        }
+//                    }
+//                }
             }
         }
     }
@@ -83,6 +74,6 @@ extension MCTSTree.ActionVisits: Equatable where State == GameState {
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView(controlAction: { _ in }, legalMoves: [], highlightedMove: nil)
+        ControlView(controlAction: { _ in }, legalMoves: [])
     }
 }
