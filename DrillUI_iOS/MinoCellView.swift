@@ -13,6 +13,7 @@ struct MinoCellView: View {
     enum CellType: Equatable {
         case none
         case garbage
+        case live(Tetromino)
         case placed(Tetromino)
     }
 
@@ -22,13 +23,21 @@ struct MinoCellView: View {
         switch type {
         case .none:
             Color.clear
-        case .garbage, .placed(_):
+        case .garbage, .live(_):
             Rectangle()
                 .fill(cellColor)
                 .cornerRadius(2)
                 .padding(1)
                 .background(cellSecondaryColor)
                 .cornerRadius(2)
+        case .placed(_):
+            Rectangle()
+                .fill(cellColor)
+                .cornerRadius(2)
+                .padding(1)
+                .background(cellSecondaryColor)
+                .cornerRadius(2)
+                .saturation(0.6)    // Same, just desaturated
         }
     }
 
@@ -38,6 +47,8 @@ struct MinoCellView: View {
             return .clear
         case .garbage:
             return .gray
+        case .live(let tetromino):
+            return tetromino.placedMinoColor
         case .placed(let tetromino):
             return tetromino.placedMinoColor
         }
@@ -49,6 +60,8 @@ struct MinoCellView: View {
             return .clear
         case .garbage:
             return .gray.opacity(0.8)
+        case .live(let tetromino):
+            return tetromino.placedMinoColor.opacity(0.8)
         case .placed(let tetromino):
             return tetromino.placedMinoColor.opacity(0.8)
         }

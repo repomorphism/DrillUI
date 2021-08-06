@@ -12,15 +12,23 @@ import DrillAI
 struct HoldPieceView: View {
     let type: Tetromino?
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Rectangle()
-                .strokeBorder(Color(white: 0.75), lineWidth: 1.0)
-                .padding(1)
-                .aspectRatio(1, contentMode: .fit)
-            if let type = type {
-                Text(type.debugDescription)
-                    .font(.largeTitle)
-                    .foregroundColor(.green)
+                .fill(.clear)
+                .aspectRatio(4 / 20, contentMode: .fit)
+                .padding(2)
+                .layoutPriority(1)
+            ZStack {
+                Rectangle()
+                    .fill(.clear)
+                    .aspectRatio(4 / 3, contentMode: .fit)
+                    .border(Color(white: 0.75), width: 1.0)
+                    .padding(1)
+                if let type = type {
+                    PieceView(piece: Piece(type: type, x: 0, y: 0, orientation: .up))
+                        .aspectRatio(4 / 2, contentMode: .fit)
+                        .padding(2)
+                }
             }
         }
     }

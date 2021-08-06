@@ -9,12 +9,21 @@ import SwiftUI
 
 struct NextPiecesView: View {
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Rectangle()
-                .strokeBorder(Color(white: 0.75), lineWidth: 1.0)
-                .padding(1)
+                .fill(.clear)
+                .aspectRatio(4 / 20, contentMode: .fit)
+                .padding(2)
+                .layoutPriority(1)
+            ZStack {
+                Rectangle()
+                    .fill(.clear)
+                    .aspectRatio(4 / 15, contentMode: .fit)
+                    .border(Color(white: 0.75), width: 1.0)
+                    .padding(1)
+                // VStack { // 5 preview pieces }
+            }
         }
-        .aspectRatio(4 / 15, contentMode: .fit)
     }
 }
 

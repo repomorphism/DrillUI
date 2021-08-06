@@ -15,31 +15,20 @@ struct GameView: View {
     let displayField: DisplayField
 
     var body: some View {
-        HStack(alignment: .top, spacing: 8) {
-            Spacer()
-
-            // Hold piece column
-            VStack {
-                HoldPieceView(type: state.hold)
-            }
-            .aspectRatio(0.2, contentMode: .fit)
-
-            // Game field column
-            FieldView(displayField: displayField, playPiece: Piece(type: state.playPiece, x: 4, y: 15, orientation: .up))
-
-                .layoutPriority(1)
-
-            // Preview piece column
-            VStack {
-                NextPiecesView()
-            }
-            .aspectRatio(0.2, contentMode: .fit)
-
-            Spacer()
+        HStack(alignment: .top, spacing: 0) {
+            Spacer(minLength: 0)
+            HoldPieceView(type: state.hold)
+            Spacer(minLength: 0)
+            FieldView(displayField: displayField,
+                      playPiece: Piece(type: state.playPiece, x: 0, y: 0,
+                                       orientation: .up))
+            Spacer(minLength: 0)
+            NextPiecesView()
+            Spacer(minLength: 0)
         }
-        // An empirically measured approximation is 83/90 or 0.9222...,
-        // make it a bit wider than that
-        .aspectRatio(0.93, contentMode: .fit)
+        // A 0.92 ratio is just about enough, extra widths go into spacers.
+        // If too small (i.e. not wide enough), one of them will shrink to incorrect size.
+        .aspectRatio(0.925, contentMode: .fit)
     }
 }
 

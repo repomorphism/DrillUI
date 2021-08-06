@@ -14,9 +14,9 @@ struct PlayPieceView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(piece.debugDescription)
-                .font(.system(.largeTitle, design: .monospaced))
-                .foregroundColor(.blue)
+            PieceView(piece: piece)
+                .frame(width: 120, height: 120)
+                .border(.green, width: 4)
             Spacer()
             Spacer()
         }

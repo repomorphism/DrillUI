@@ -53,6 +53,7 @@ struct DisplayField {
     /// Parallels `Field.lockDown(_)`, due to Field not keeping info about
     /// original tetromino
     func nextDisplayField(placing piece: Piece, matching field: Field) -> DisplayField {
+        // Make a copy of rows and fill in the piece
         var newRows = rows
         let cellPositions = piece.cellPositions
         for (x, y) in cellPositions {

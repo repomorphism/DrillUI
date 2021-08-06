@@ -17,7 +17,9 @@ struct FieldView: View {
     var body: some View {
         ZStack {
             GridLinesView()
+                .aspectRatio(0.5, contentMode: .fit)    // 10:20 aspect
                 .padding(2)
+                .layoutPriority(1)  // This just needs to be on the one with aspect ratio
             FieldCellsView(field: displayField)
                 .padding(2)
             Rectangle()
@@ -26,7 +28,6 @@ struct FieldView: View {
                 PlayPieceView(piece: playPiece)
             }
         }
-        .aspectRatio(0.5, contentMode: .fit)
     }
 }
 
@@ -35,7 +36,6 @@ struct FieldView_Previews: PreviewProvider {
         let field = GameState(garbageCount: 8).field
         FieldView(displayField: DisplayField(from: field), playPiece: nil)
             .background(Color(white: 0.05))
-//            .previewInterfaceOrientation(.landscapeRight)
             .previewLayout(.sizeThatFits)
     }
 }

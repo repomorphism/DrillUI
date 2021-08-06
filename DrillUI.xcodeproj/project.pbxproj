@@ -20,6 +20,7 @@
 		DA14BBC826B161F200BBB4FE /* DrillAI in Frameworks */ = {isa = PBXBuildFile; productRef = DA14BBC726B161F200BBB4FE /* DrillAI */; };
 		DA1F5B9A26B829A100FC8F70 /* FieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1F5B9926B829A100FC8F70 /* FieldView.swift */; };
 		DA1F5B9C26B8346E00FC8F70 /* GridLinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */; };
+		DA5A92D426BBE79D008FAB33 /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A92D326BBE79D008FAB33 /* PieceView.swift */; };
 		DA5FDFD826B07BF9002A8354 /* DrillUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */; };
 		DA5FDFDC26B07BFD002A8354 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */; };
 		DA5FDFDF26B07BFD002A8354 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDFDE26B07BFD002A8354 /* Preview Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		DA14BBC226B15EF300BBB4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA1F5B9926B829A100FC8F70 /* FieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldView.swift; sourceTree = "<group>"; };
 		DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLinesView.swift; sourceTree = "<group>"; };
+		DA5A92D326BBE79D008FAB33 /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
 		DA5FDFD426B07BF9002A8354 /* DrillUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUIApp.swift; sourceTree = "<group>"; };
 		DA5FDFDB26B07BFD002A8354 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				DABDDCFC26BAB1C90096CBE2 /* PlayPieceView.swift */,
+				DA5A92D326BBE79D008FAB33 /* PieceView.swift */,
 				DA98926E26B8697E00712571 /* NextPiecesView.swift */,
 				DA057D7B26B8667B0089B34A /* HoldPieceView.swift */,
 				DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */,
@@ -415,6 +418,7 @@
 				DA057D7A26B85C390089B34A /* GameView.swift in Sources */,
 				DA868CCA26BB0D8E00441CCB /* PieceUtilities.swift in Sources */,
 				DA14BB9C26B15E2700BBB4FE /* DrillUI_iOSApp.swift in Sources */,
+				DA5A92D426BBE79D008FAB33 /* PieceView.swift in Sources */,
 				DABBD87826B9CA33001B0E28 /* GameplayController.swift in Sources */,
 				DA868CC826BAFE0300441CCB /* MinoCellView.swift in Sources */,
 				DA057D7C26B8667B0089B34A /* HoldPieceView.swift in Sources */,
