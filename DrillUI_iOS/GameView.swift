@@ -23,7 +23,7 @@ struct GameView: View {
                       playPiece: Piece(type: state.playPiece, x: 0, y: 0,
                                        orientation: .up))
             Spacer(minLength: 0)
-            NextPiecesView()
+            NextPiecesView(nextPieceTypes: state.nextPieceTypes)
             Spacer(minLength: 0)
         }
         // A 0.92 ratio is just about enough, extra widths go into spacers.
