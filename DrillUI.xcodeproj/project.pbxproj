@@ -35,7 +35,7 @@
 		DABBD87826B9CA33001B0E28 /* GameplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABBD87726B9CA33001B0E28 /* GameplayController.swift */; };
 		DABBD87A26B9D0C0001B0E28 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABBD87926B9D0C0001B0E28 /* ContentView.swift */; };
 		DABDDCFD26BAB1C90096CBE2 /* PlayPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABDDCFC26BAB1C90096CBE2 /* PlayPieceView.swift */; };
-		DAC37FEE26B994110095B653 /* FieldCellsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC37FED26B994110095B653 /* FieldCellsView.swift */; };
+		DAC37FEE26B994110095B653 /* FieldRowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC37FED26B994110095B653 /* FieldRowsView.swift */; };
 		DAC37FF026B994890095B653 /* DisplayField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC37FEF26B994890095B653 /* DisplayField.swift */; };
 /* End PBXBuildFile section */
 
@@ -85,7 +85,7 @@
 		DABBD87726B9CA33001B0E28 /* GameplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayController.swift; sourceTree = "<group>"; };
 		DABBD87926B9D0C0001B0E28 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DABDDCFC26BAB1C90096CBE2 /* PlayPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayPieceView.swift; sourceTree = "<group>"; };
-		DAC37FED26B994110095B653 /* FieldCellsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldCellsView.swift; sourceTree = "<group>"; };
+		DAC37FED26B994110095B653 /* FieldRowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRowsView.swift; sourceTree = "<group>"; };
 		DAC37FEF26B994890095B653 /* DisplayField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,7 +134,7 @@
 				DABBD87926B9D0C0001B0E28 /* ContentView.swift */,
 				DABBD87726B9CA33001B0E28 /* GameplayController.swift */,
 				DA1F5B9926B829A100FC8F70 /* FieldView.swift */,
-				DAC37FED26B994110095B653 /* FieldCellsView.swift */,
+				DAC37FED26B994110095B653 /* FieldRowsView.swift */,
 				DA868CC726BAFE0300441CCB /* MinoCellView.swift */,
 				DAC37FEF26B994890095B653 /* DisplayField.swift */,
 				DA868CC926BB0D8E00441CCB /* PieceUtilities.swift */,
@@ -411,7 +411,7 @@
 				DAC37FF026B994890095B653 /* DisplayField.swift in Sources */,
 				DABBD87A26B9D0C0001B0E28 /* ContentView.swift in Sources */,
 				DA1F5B9C26B8346E00FC8F70 /* GridLinesView.swift in Sources */,
-				DAC37FEE26B994110095B653 /* FieldCellsView.swift in Sources */,
+				DAC37FEE26B994110095B653 /* FieldRowsView.swift in Sources */,
 				DA14BBC626B15F1800BBB4FE /* ControlView.swift in Sources */,
 				DA1F5B9A26B829A100FC8F70 /* FieldView.swift in Sources */,
 				DA14BBC526B15F1500BBB4FE /* ConsoleView.swift in Sources */,

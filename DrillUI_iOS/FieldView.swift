@@ -20,7 +20,7 @@ struct FieldView: View {
                 .aspectRatio(0.5, contentMode: .fit)    // 10:20 aspect
                 .padding(2)
                 .layoutPriority(1)  // This just needs to be on the one with aspect ratio
-            FieldCellsView(field: displayField)
+            FieldRowsView(field: displayField)
                 .padding(2)
             Rectangle()
                 .fill(.clear)
