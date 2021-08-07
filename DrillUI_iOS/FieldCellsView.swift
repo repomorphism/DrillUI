@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DrillAI
 
 
 struct FieldCellsView: View {
@@ -27,7 +28,7 @@ struct FieldCellsView: View {
 struct FieldCellsView_Previews: PreviewProvider {
     static let storage: [Int16] = [0b11111_01111, 0b11011_11111, 0b11111_11101]
     static var previews: some View {
-        FieldCellsView(field: DisplayField(fieldStorage: storage))
+        FieldCellsView(field: DisplayField(from: Field(storage: storage, garbageCount: 3)))
             .aspectRatio(0.5, contentMode: .fit)
             .background(Color(white: 0.05))
     }

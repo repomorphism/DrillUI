@@ -10,44 +10,25 @@ import DrillAI
 
 
 struct DisplayField {
-    typealias CellType = MinoCellView.CellType
+    let field: Field
+    let rows: [Row]     // These rows are top-down, opposite of Field's bottom-up
+}
 
+
+extension DisplayField {
     struct Row: Identifiable {
         let id: UUID = .init()
-        var cells: [CellType]
-
-        init(bitmap: Int16) {
-            self.cells = (0 ..< 10).map { i -> CellType in
-                bitmap & (1 << i) == 0 ? .none : .garbage
-            }
-        }
-
-        var isFilled: Bool { !cells.contains(.none) }
-        var isEmpty: Bool { cells.allSatisfy { $0 == .none } }
+        var cells: [MinoCellView.CellType]
     }
+}
 
-    let rows: [Row]
 
-    // These rows are top-down, opposite of Field's bottom-up
-
-    init() {
-        self.init(fieldStorage: [])
-    }
-
-    init(rows: [Row]) {
-        self.rows = rows
-    }
-
+extension DisplayField {
     init(from field: Field) {
-        assert(field.storage.count <= 20)
-        self.init(fieldStorage: field.storage)
-    }
-
-    init(fieldStorage: [Int16]) {
-        assert(fieldStorage.count <= 20)
         // Fill to 20 rows
-        let filledStorage = [Int16](repeating: 0, count: 20 - fieldStorage.count) + fieldStorage.reversed()
+        let filledStorage = [Int16](repeating: 0, count: 20 - field.height) + field.storage.reversed()
         self.rows = filledStorage.map(Row.init(bitmap:))
+        self.field = field
     }
 
     /// Parallels `Field.lockDown(_)`, due to Field not keeping info about
@@ -90,6 +71,18 @@ struct DisplayField {
             + newRows
             + risenRows.map { Row(bitmap: $0) }
 
-        return DisplayField(rows: newRows)
+        return DisplayField(field: field, rows: newRows)
     }
+}
+
+
+extension DisplayField.Row {
+    init(bitmap: Int16) {
+        self.cells = (0 ..< 10).map { i -> MinoCellView.CellType in
+            bitmap & (1 << i) == 0 ? .none : .garbage
+        }
+    }
+
+    var isFilled: Bool { !cells.contains(.none) }
+    var isEmpty: Bool { cells.allSatisfy { $0 == .none } }
 }
