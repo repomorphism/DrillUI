@@ -12,8 +12,8 @@ struct GridLinesView: View {
         Rectangle()
             .fill(.clear)
             .background(GeometryReader { proxy in
-                let width = CGFloat(proxy.size.width)
-                let height = CGFloat(proxy.size.height)
+                let width = proxy.size.width
+                let height = proxy.size.height
                 let cellWidth = width / 10
                 let cellHeight = height / 20
                 Path { path in

@@ -23,8 +23,8 @@ struct PlayPieceView: View {
         Rectangle()
             .fill(.clear)
             .overlay(GeometryReader { proxy in
-                let cellWidth = CGFloat(proxy.size.width) / 10
-                let cellHeight = CGFloat(proxy.size.height) / 20
+                let cellWidth = proxy.size.width / 10
+                let cellHeight = proxy.size.height / 20
                 let pieceWidth = CGFloat(maxX - minX + 1) * cellWidth
                 let pieceHeight = CGFloat(maxY - minY + 1) * cellHeight
                 let pieceX = CGFloat(minX) * cellWidth + pieceWidth / 2
