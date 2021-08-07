@@ -23,9 +23,11 @@ struct FieldView: View {
             FieldCellsView(field: displayField)
                 .padding(2)
             Rectangle()
-                .strokeBorder(Color(white: 0.75), lineWidth: 2.0)
+                .fill(.clear)
+                .border(Color(white: 0.75), width: 2.0)
             if let playPiece = playPiece {
                 PlayPieceView(piece: playPiece)
+                    .padding(2)
             }
         }
     }

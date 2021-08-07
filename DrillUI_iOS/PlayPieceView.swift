@@ -10,16 +10,29 @@ import DrillAI
 
 
 struct PlayPieceView: View {
+
     let piece: Piece
+
     var body: some View {
-        VStack {
-            Spacer()
-            PieceView(piece: piece)
-                .frame(width: 120, height: 120)
-                .border(.green, width: 4)
-            Spacer()
-            Spacer()
-        }
+        let cellPositions = piece.cellPositions
+        let minX = cellPositions.map(\.x).min()!
+        let maxX = cellPositions.map(\.x).max()!
+        let minY = cellPositions.map(\.y).min()!
+        let maxY = cellPositions.map(\.y).max()!
+
+        Rectangle()
+            .fill(.clear)
+            .overlay(GeometryReader { proxy in
+                let cellWidth = CGFloat(proxy.size.width) / 10
+                let cellHeight = CGFloat(proxy.size.height) / 20
+                let pieceWidth = CGFloat(maxX - minX + 1) * cellWidth
+                let pieceHeight = CGFloat(maxY - minY + 1) * cellHeight
+                let pieceX = CGFloat(minX) * cellWidth + pieceWidth / 2
+                let pieceY = CGFloat(19 - maxY) * cellHeight + pieceHeight / 2
+                PieceView(piece: piece)
+                    .frame(width: pieceWidth, height: pieceHeight)
+                    .position(x: pieceX, y: pieceY)
+            })
     }
 }
 

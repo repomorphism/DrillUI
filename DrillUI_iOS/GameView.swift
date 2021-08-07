@@ -20,7 +20,7 @@ struct GameView: View {
             HoldPieceView(type: state.hold)
             Spacer(minLength: 0)
             FieldView(displayField: displayField,
-                      playPiece: Piece(type: state.playPiece, x: 0, y: 0,
+                      playPiece: Piece(type: state.playPiece, x: 4, y: 18,
                                        orientation: .up))
             Spacer(minLength: 0)
             NextPiecesView(nextPieceTypes: state.nextPieceTypes)
