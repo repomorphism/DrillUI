@@ -12,6 +12,12 @@ import DrillAI
 struct PlayPieceView: View {
 
     let piece: Piece
+    let isGhost: Bool
+
+    init(piece: Piece, isGhost: Bool = false) {
+        self.piece = piece
+        self.isGhost = isGhost
+    }
 
     var body: some View {
         let cellPositions = piece.cellPositions
@@ -29,7 +35,7 @@ struct PlayPieceView: View {
                 let pieceHeight = CGFloat(maxY - minY + 1) * cellHeight
                 let pieceX = CGFloat(minX) * cellWidth + pieceWidth / 2
                 let pieceY = CGFloat(19 - maxY) * cellHeight + pieceHeight / 2
-                PieceView(piece: piece)
+                PieceView(piece: piece, isGhost: isGhost)
                     .frame(width: pieceWidth, height: pieceHeight)
                     .position(x: pieceX, y: pieceY)
             })

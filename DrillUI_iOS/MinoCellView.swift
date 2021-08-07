@@ -14,6 +14,7 @@ struct MinoCellView: View {
         case none
         case garbage
         case live(Tetromino)
+        case ghost(Tetromino)
         case placed(Tetromino)
     }
 
@@ -30,6 +31,14 @@ struct MinoCellView: View {
                 .padding(1)
                 .background(cellSecondaryColor)
                 .cornerRadius(2)
+        case .ghost(_):
+            Rectangle()
+                .fill(cellColor)
+                .cornerRadius(2)
+                .padding(1)
+                .background(cellSecondaryColor)
+                .cornerRadius(2)
+                .opacity(0.1)       // Same, just translucent
         case .placed(_):
             Rectangle()
                 .fill(cellColor)
@@ -47,10 +56,8 @@ struct MinoCellView: View {
             return .clear
         case .garbage:
             return .gray
-        case .live(let tetromino):
-            return tetromino.placedMinoColor
-        case .placed(let tetromino):
-            return tetromino.placedMinoColor
+        case .live(let tetromino),.ghost(let tetromino), .placed(let tetromino):
+            return tetromino.minoColor
         }
     }
 
@@ -60,16 +67,14 @@ struct MinoCellView: View {
             return .clear
         case .garbage:
             return .gray.opacity(0.8)
-        case .live(let tetromino):
-            return tetromino.placedMinoColor.opacity(0.8)
-        case .placed(let tetromino):
-            return tetromino.placedMinoColor.opacity(0.8)
+        case .live(let tetromino), .ghost(let tetromino), .placed(let tetromino):
+            return tetromino.minoColor.opacity(0.8)
         }
     }
 }
 
 extension Tetromino {
-    var placedMinoColor: Color {
+    var minoColor: Color {
         switch self {
         case .I:
             return .cyan

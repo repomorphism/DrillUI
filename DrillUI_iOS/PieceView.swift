@@ -12,6 +12,12 @@ import DrillAI
 struct PieceView: View {
 
     let piece: Piece
+    let isGhost: Bool
+
+    init(piece: Piece, isGhost: Bool = false) {
+        self.piece = piece
+        self.isGhost = isGhost
+    }
 
     var body: some View {
         let cellPositions = piece.cellPositions
@@ -25,7 +31,7 @@ struct PieceView: View {
                 HStack(spacing: 0) {
                     ForEach(minX ..< maxX + 1, id: \.self) { x in
                         if cellPositions.contains { $0.x == x && $0.y == y } {
-                            MinoCellView(type: .live(piece.type))
+                            MinoCellView(type: isGhost ? .ghost(piece.type) : .live(piece.type))
                         } else {
                             Color.clear
                         }

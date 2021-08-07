@@ -26,7 +26,11 @@ struct FieldView: View {
                 .fill(.clear)
                 .border(Color(white: 0.75), width: 2.0)
             if let playPiece = playPiece {
+                // Live piece
                 PlayPieceView(piece: playPiece)
+                    .padding(2)
+                // Ghost piece
+                PlayPieceView(piece: displayField.field.makeGhost(of: playPiece), isGhost: true)
                     .padding(2)
             }
         }

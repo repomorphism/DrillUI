@@ -26,7 +26,7 @@ struct GameView: View {
             Spacer(minLength: 0)
         }
         // A 0.92 ratio is just about enough, extra widths go into spacers.
-        // If too small (i.e. not wide enough), one of them will shrink to incorrect size.
+        // If not wide enough, one of them will shrink to incorrect size.
         .aspectRatio(0.925, contentMode: .fit)
     }
 }
