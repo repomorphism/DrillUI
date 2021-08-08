@@ -15,8 +15,7 @@ final class GameplayController: ObservableObject {
     @Published var state: GameState
     @Published var legalMoves: [ActionVisits] = []
 
-    // Don't need to @Publish this because it's tied with state's change
-    var displayField: DisplayField
+    var displayField: DisplayField  // Update this whenever state changes
 
     var field: Field {
         state.field
@@ -31,8 +30,11 @@ final class GameplayController: ObservableObject {
         self.state = state
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
         self.displayField = DisplayField(from: state.field)
+        self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
     }
+}
 
+extension GameplayController {
     func startNewGame(garbageCount count: Int) {
         let newState = GameState(garbageCount: count)
         let evaluator = BCTSEvaluator()
