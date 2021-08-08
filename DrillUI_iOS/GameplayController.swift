@@ -55,15 +55,17 @@ extension GameplayController {
     }
 
     func play(_ piece: Piece) {
-        let isThinking = bot.isThinking
+        let shouldContinueThinking = bot.isThinking
         stopThinking()
-        Task { [weak self] in
+
+        Task { [weak self, displayField] in
             let newState = await bot.advance(with: piece)
-            let legalMoves = await self?.bot.getActions()
-            await self?.updateValues(state: newState,
-                                     legalMoves: legalMoves,
-                                     piece: piece)
-            if isThinking {
+            let newDisplayField = displayField.nextDisplayField(placing: piece, matching: newState.field)
+
+            await self?.update(state: newState, displayField: newDisplayField)
+            await self?.updateLegalMoves()
+
+            if shouldContinueThinking {
                 self?.startThinking()
             }
         }
@@ -71,26 +73,17 @@ extension GameplayController {
 }
 
 private extension GameplayController {
-    func updateValues(state: GameState? = nil,
-                      legalMoves: [ActionVisits]? = nil,
-                      piece: Piece? = nil) async {
-        let newDisplayField: DisplayField?
-        if let state = state, let piece = piece {
-            newDisplayField = displayField.nextDisplayField(placing: piece, matching: state.field)
-        } else {
-            newDisplayField = nil
+    func updateLegalMoves() async {
+        let legalMoves = await self.bot.getActions()
+        await MainActor.run {
+            self.legalMoves = legalMoves
         }
+    }
 
-        await MainActor.run { [weak self] in
-            if let state = state {
-                self?.state = state
-            }
-            if let legalMoves = legalMoves {
-                self?.legalMoves = legalMoves
-            }
-            if let displayField = newDisplayField {
-                self?.displayField = displayField
-            }
+    func update(state: GameState, displayField: DisplayField) async {
+        await MainActor.run {
+            self.state = state
+            self.displayField = displayField
         }
     }
 
@@ -99,8 +92,7 @@ private extension GameplayController {
             .autoconnect()
             .sink { _ in
                 Task { [weak self] in
-                    let legalMoves = await self?.bot.getActions()
-                    await self?.updateValues(legalMoves: legalMoves)
+                    await self?.updateLegalMoves()
                 }
             }
     }
