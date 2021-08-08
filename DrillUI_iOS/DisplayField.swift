@@ -16,7 +16,7 @@ struct DisplayField {
 
 
 extension DisplayField {
-    struct Row: Identifiable {
+    struct Row: Identifiable, Equatable {
         let id: UUID = .init()
         var cells: [MinoCellView.CellType]
     }
@@ -31,8 +31,10 @@ extension DisplayField {
         self.field = field
     }
 
-    /// Parallels `Field.lockDown(_)`, due to Field not keeping info about
-    /// original tetromino
+    /// Parallels `Field.lockDown(_)`, due to Field not keeping info about the
+    /// original tetromino.  Returns a display field with the piece locked down,
+    /// but not removing filled rows.  Look at `normalizedDisplayField()` to see
+    /// if there's any row insertion/removal.
     func nextDisplayField(placing piece: Piece, matching field: Field) -> DisplayField {
         // Make a copy of rows and fill in the piece
         var newRows = rows
@@ -41,36 +43,44 @@ extension DisplayField {
             newRows[19 - y].cells[x] = .placed(piece.type)
         }
 
-        // Remove filled rows
+        // Count filled rows
         let lowestRow = cellPositions.map(\.y).min()!
         let highestRow = cellPositions.map(\.y).max()!
 
-        var removedRowCount = 0
+        var filledRowCount = 0
         for rowIndex in (lowestRow ... highestRow) {
             if newRows[19 - rowIndex].isFilled {
-                newRows.remove(at: 19 - rowIndex)
-                removedRowCount += 1
+                filledRowCount += 1
             }
         }
 
         // Find current height, or highest nonempty row
-        var highestNonemptyRow = highestRow - removedRowCount
+        var highestNonemptyRow = highestRow
         while !newRows[(newRows.count - 1) - (highestNonemptyRow + 1)].isEmpty {
             highestNonemptyRow += 1
         }
 
         // Compare to matching field to see how many garbage lines are added
-        let risenRowCount = field.height - (highestNonemptyRow + 1)
+        let risenRowCount = field.height - (highestNonemptyRow + 1 - filledRowCount)
         let risenRows = field.storage.prefix(risenRowCount).reversed()
 
-        // Calculate how many top empty rows to be added
-        let emptyRowCount = 20 - newRows.count - risenRowCount
+        // Put together existing rows and risen garbage
+        newRows += risenRows.map { Row(bitmap: $0) }
 
-        // Put together empty rows - existing rows - risen garbage
-        newRows = (0 ..< emptyRowCount).map { _ in Row(bitmap: 0) }
-            + newRows
-            + risenRows.map { Row(bitmap: $0) }
+        return DisplayField(field: field, rows: newRows)
+    }
 
+    /// Normalize the field by clearing filled rows and fill up to 20 rows if needed.
+    /// Returns nil if no modification is necessary.
+    func normalizedDisplayField() -> DisplayField? {
+        var newRows = rows.filter { !$0.isFilled }
+        guard newRows.count != rows.count || newRows.count != 20 else {
+            return nil
+        }
+
+        if newRows.count < 20 {
+            newRows = (newRows.count ..< 20).map { _ in Row(bitmap: 0) } + newRows
+        }
         return DisplayField(field: field, rows: newRows)
     }
 }
@@ -86,3 +96,6 @@ extension DisplayField.Row {
     var isFilled: Bool { !cells.contains(.none) }
     var isEmpty: Bool { cells.allSatisfy { $0 == .none } }
 }
+
+
+extension DisplayField: Equatable {}

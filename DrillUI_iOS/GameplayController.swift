@@ -67,8 +67,14 @@ extension GameplayController {
         Task { [weak self, displayField] in
             let newState = await bot.advance(with: piece)
             let newDisplayField = displayField.nextDisplayField(placing: piece, matching: newState.field)
+            if let normalizedField = newDisplayField.normalizedDisplayField() {
+                await self?.update(state: newState, displayField: newDisplayField)
+                await Task.sleep(500_000_000)
+                await self?.update(state: newState, displayField: normalizedField)
+            } else {
+                await self?.update(state: newState, displayField: newDisplayField)
+            }
 
-            await self?.update(state: newState, displayField: newDisplayField)
             await self?.updateLegalMoves()
             let legalMoveCount = self?.legalMoves.count ?? 0
 
