@@ -30,10 +30,11 @@ struct FieldView: View {
                 PlayPieceView(piece: playPiece)
                     .padding(2)
                 // Ghost piece
-                PlayPieceView(piece: displayField.field.makeGhost(of: playPiece), isGhost: true)
-                    .padding(2)
+//                PlayPieceView(piece: displayField.field.makeGhost(of: playPiece), isGhost: true)
+//                    .padding(2)
             }
         }
+        .clipped()  // Hide >20 rows when animating new garbage
     }
 }
 

@@ -64,22 +64,33 @@ extension GameplayController {
         let resumeThinkingAfterPlay = resumeThinkingAfterPlay ?? bot.isThinking
         stopThinking()
 
-        Task { [weak self, displayField] in
+        Task {
             let newState = await bot.advance(with: piece)
-            let newDisplayField = displayField.nextDisplayField(placing: piece, matching: newState.field)
+
+            var newDisplayField = displayField.nextDisplayField(placing: piece, matching: newState.field)
             if let normalizedField = newDisplayField.normalizedDisplayField() {
-                await self?.update(state: newState, displayField: newDisplayField)
-                await Task.sleep(500_000_000)
-                await self?.update(state: newState, displayField: normalizedField)
+                // Set all rows as not filled first before animation
+                let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
+                clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = false }
+                await update(state: newState, displayField: newDisplayField)
+                await Task.sleep(10_000_000)
+
+                // Animate row clears (in-place)
+                clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
+                await update(state: newState, displayField: newDisplayField)
+                await Task.sleep(300_000_000)
+
+                // Animate row rearrangement
+                await update(state: newState, displayField: normalizedField)
+                await Task.sleep(300_000_000)
             } else {
-                await self?.update(state: newState, displayField: newDisplayField)
+                await update(state: newState, displayField: newDisplayField)
             }
 
-            await self?.updateLegalMoves()
-            let legalMoveCount = self?.legalMoves.count ?? 0
+            await updateLegalMoves()
 
-            if resumeThinkingAfterPlay, legalMoveCount > 0 {
-                self?.startThinking()
+            if resumeThinkingAfterPlay, legalMoves.count > 0 {
+                startThinking()
             }
         }
     }
@@ -91,6 +102,10 @@ private extension GameplayController {
         await MainActor.run {
             self.legalMoves = legalMoves
         }
+    }
+
+    func animatePlay() async {
+
     }
 
     func update(state: GameState, displayField: DisplayField) async {

@@ -11,7 +11,7 @@ import DrillAI
 
 struct DisplayField {
     let field: Field
-    let rows: [Row]     // These rows are top-down, opposite of Field's bottom-up
+    var rows: [Row]     // These rows are top-down, opposite of Field's bottom-up
 }
 
 
@@ -19,6 +19,7 @@ extension DisplayField {
     struct Row: Identifiable, Equatable {
         let id: UUID = .init()
         var cells: [MinoCellView.CellType]
+        var isFilled: Bool = false
     }
 }
 
@@ -41,6 +42,7 @@ extension DisplayField {
         let cellPositions = piece.cellPositions
         for (x, y) in cellPositions {
             newRows[19 - y].cells[x] = .placed(piece.type)
+            newRows[19 - y].checkFilled()
         }
 
         // Count filled rows
@@ -93,8 +95,11 @@ extension DisplayField.Row {
         }
     }
 
-    var isFilled: Bool { !cells.contains(.none) }
     var isEmpty: Bool { cells.allSatisfy { $0 == .none } }
+
+    mutating func checkFilled() {
+        isFilled = !cells.contains(.none)
+    }
 }
 
 
