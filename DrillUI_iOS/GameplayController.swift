@@ -110,11 +110,10 @@ private extension GameplayController {
 
     }
 
-    func update(state: GameState, displayField: DisplayField) async {
-        await MainActor.run {
-            self.state = state
-            self.displayField = displayField
-        }
+    @MainActor
+    func update(state: GameState, displayField: DisplayField) {
+        self.state = state
+        self.displayField = displayField
     }
 
     func shouldAutoplay() -> Bool {
