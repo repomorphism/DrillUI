@@ -34,7 +34,7 @@ struct FieldRowsView: View {
                 }
             }
         }
-        .animation(.easeIn(duration: 0.3), value: field)
+        .animation(.easeIn(duration: 0.125), value: field)
     }
 //        .animation(.interpolatingSpring(stiffness: 50, damping: 10, initialVelocity: 10), value: field)
 
