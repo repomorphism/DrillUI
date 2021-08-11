@@ -15,9 +15,6 @@ struct FieldRowsView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            Rectangle()
-                .fill(.clear)
-                .aspectRatio(0.5, contentMode: .fit)
             ForEach(Array(field.rows.enumerated()), id: \.1.id) { (index, row) in
                 HStack(spacing: 0) {
                     ForEach(0 ..< row.cells.count) { i in
@@ -36,9 +33,8 @@ struct FieldRowsView: View {
         }
         .animation(.easeIn(duration: 0.125), value: field)
     }
-//        .animation(.interpolatingSpring(stiffness: 50, damping: 10, initialVelocity: 10), value: field)
-
 }
+
 
 struct FieldRowsView_Previews: PreviewProvider {
     static let storage: [Int16] = [0b11111_01111, 0b11011_11111, 0b11111_11101]
