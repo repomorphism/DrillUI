@@ -14,8 +14,12 @@ final class GameplayController: ObservableObject {
 
     @Published var state: GameState
     @Published var legalMoves: [ActionVisits] = []
+    @Published var playPieceType: Tetromino?
+    @Published var displayField: DisplayField  // Update this whenever state changes
 
-    var displayField: DisplayField  // Update this whenever state changes
+    var playPiece: Piece? {
+        playPieceType.map { Piece(type: $0, x: 4, y: 18, orientation: .up) }
+    }
 
     private var bot: GeneratorBot<BCTSEvaluator>
     private var timerSubscription: Cancellable?
@@ -25,9 +29,10 @@ final class GameplayController: ObservableObject {
         let state = GameState(garbageCount: 8)
         let evaluator = BCTSEvaluator()
         self.state = state
-        self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
-        self.displayField = DisplayField(from: state.field)
         self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
+        self.playPieceType = state.playPieceType
+        self.displayField = DisplayField(from: state.field)
+        self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
         defer {
             self.bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
         }
@@ -43,10 +48,11 @@ extension GameplayController {
         let newState = GameState(garbageCount: count)
         let evaluator = BCTSEvaluator()
         state = newState
+        legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
+        playPieceType = state.playPieceType
+        displayField = DisplayField(from: state.field)
         bot = GeneratorBot(initialState: state, evaluator: evaluator)
         bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
-        displayField = DisplayField(from: state.field)
-        legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
     }
 
     func startThinking() {
@@ -90,20 +96,20 @@ private extension GameplayController {
             // Set all rows as not filled first before animation
             let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
             clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = false }
-            await update(state: newState, displayField: newDisplayField)
+            await update(state: state, displayField: newDisplayField, playPieceType: nil)
             await Task.sleep(10_000_000)
 
             // Animate row clears (in-place)
             clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
-            await update(state: newState, displayField: newDisplayField)
+            await update(state: state, displayField: newDisplayField, playPieceType: nil)
             await Task.sleep(125_000_000)
 
             // Animate row rearrangement
-            await update(state: newState, displayField: normalizedField)
+            await update(state: newState, displayField: normalizedField, playPieceType: newState.playPieceType)
             await Task.sleep(125_000_000)
         } else {
             // No line clear (so normalizing returns nil)
-            await update(state: newState, displayField: newDisplayField)
+            await update(state: newState, displayField: newDisplayField, playPieceType: newState.playPieceType)
         }
 
         await updateLegalMoves()
@@ -111,9 +117,10 @@ private extension GameplayController {
     }
 
     @MainActor
-    func update(state: GameState, displayField: DisplayField) {
+    func update(state: GameState, displayField: DisplayField, playPieceType: Tetromino?) {
         self.state = state
         self.displayField = displayField
+        self.playPieceType = playPieceType
     }
 
     func shouldAutoplay() -> Bool {
