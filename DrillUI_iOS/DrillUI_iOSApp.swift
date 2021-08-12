@@ -6,10 +6,8 @@
 //
 
 import SwiftUI
-import DrillAI
+import DrillUILib
 
-
-typealias ActionVisits = MCTSTree<GameState>.ActionVisits
 
 private let initialGameLength = 10
 

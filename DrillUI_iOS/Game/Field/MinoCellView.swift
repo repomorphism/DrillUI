@@ -6,19 +6,13 @@
 //
 
 import SwiftUI
+import DrillUILib
 import DrillAI
 
 
 struct MinoCellView: View {
-    enum CellType: Equatable {
-        case none
-        case garbage
-        case live(Tetromino)
-        case ghost(Tetromino)
-        case placed(Tetromino)
-    }
 
-    let type: CellType
+    let type: DisplayField.CellType
 
     var body: some View {
         switch type {

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import DrillAI
+import DrillUILib
 
 
 struct GameView: View {

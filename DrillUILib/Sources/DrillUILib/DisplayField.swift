@@ -9,22 +9,30 @@ import Foundation
 import DrillAI
 
 
-struct DisplayField {
-    let field: Field
-    var rows: [Row]     // These rows are top-down, opposite of Field's bottom-up
+public struct DisplayField {
+    public let field: Field
+    public var rows: [Row]     // These rows are top-down, opposite of Field's bottom-up
 }
 
 
 extension DisplayField {
-    struct Row: Identifiable, Equatable {
-        let id: UUID = .init()
-        var cells: [MinoCellView.CellType]
-        var isFilled: Bool = false
+    public enum CellType: Equatable {
+        case none
+        case garbage
+        case live(Tetromino)
+        case ghost(Tetromino)
+        case placed(Tetromino)
+    }
+
+    public struct Row: Identifiable, Equatable {
+        public let id: UUID = .init()
+        public var cells: [CellType]
+        public var isFilled: Bool = false
     }
 }
 
 
-extension DisplayField {
+public extension DisplayField {
     init(from field: Field) {
         // Fill to 20 rows
         let filledStorage = [Int16](repeating: 0, count: 20 - field.height) + field.storage.reversed()
@@ -90,7 +98,7 @@ extension DisplayField {
 
 extension DisplayField.Row {
     init(bitmap: Int16) {
-        self.cells = (0 ..< 10).map { i -> MinoCellView.CellType in
+        self.cells = (0 ..< 10).map { i -> DisplayField.CellType in
             bitmap & (1 << i) == 0 ? .none : .garbage
         }
     }

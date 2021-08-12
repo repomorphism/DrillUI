@@ -13,8 +13,7 @@ import DrillAI
  */
 
 
-
-extension Piece {
+public extension Piece {
     typealias Offset = (x: Int, y: Int)
     typealias CellPosition = (x: Int, y: Int)
 

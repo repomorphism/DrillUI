@@ -10,14 +10,17 @@ import Combine
 import DrillAI
 
 
-final class GameplayController: ObservableObject {
+public typealias ActionVisits = MCTSTree<GameState>.ActionVisits
 
-    @Published var state: GameState
-    @Published var legalMoves: [ActionVisits] = []
-    @Published var playPieceType: Tetromino?
-    @Published var displayField: DisplayField  // Update this whenever state changes
 
-    var playPiece: Piece? {
+public final class GameplayController: ObservableObject {
+
+    @Published public var state: GameState
+    @Published public var legalMoves: [ActionVisits] = []
+    @Published public var playPieceType: Tetromino?
+    @Published public var displayField: DisplayField  // Update this whenever state changes
+
+    public var playPiece: Piece? {
         playPieceType.map { Piece(type: $0, x: 4, y: 18, orientation: .up) }
     }
 
@@ -25,7 +28,7 @@ final class GameplayController: ObservableObject {
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
 
-    init() {
+    public init() {
         let state = GameState(garbageCount: 8)
         let evaluator = BCTSEvaluator()
         self.state = state
@@ -39,7 +42,8 @@ final class GameplayController: ObservableObject {
     }
 }
 
-extension GameplayController {
+
+public extension GameplayController {
     var field: Field {
         state.field
     }
@@ -80,6 +84,7 @@ extension GameplayController {
         }
     }
 }
+
 
 private extension GameplayController {
     func updateLegalMoves() async {
