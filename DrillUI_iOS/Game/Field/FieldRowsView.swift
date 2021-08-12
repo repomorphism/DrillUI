@@ -12,10 +12,21 @@ import DrillAI
 
 struct FieldRowsView: View {
 
+    @State private var fieldHeight: CGFloat = 0
+
     let field: DisplayField
 
     var body: some View {
         ZStack(alignment: .top) {
+            Color.clear
+                .overlay(GeometryReader { proxy in
+                    Color.clear
+                        .preference(key: FieldHeightPreferenceKey.self,
+                                    value: FieldHeightPreferenceData(height: proxy.size.height))
+                })
+                .onPreferenceChange(FieldHeightPreferenceKey.self) { preferences in
+                    fieldHeight = preferences.height
+                }
             ForEach(Array(field.rows.enumerated()), id: \.1.id) { (index, row) in
                 HStack(spacing: 0) {
                     ForEach(0 ..< row.cells.count) { i in
@@ -26,13 +37,24 @@ struct FieldRowsView: View {
                 }
                 .aspectRatio(10, contentMode: .fit)
                 .transition(.identity)
-                .alignmentGuide(VerticalAlignment.top) { dimensions in
-                    // Balance extra bottom rows with equal additional distance
-                    -dimensions.height * CGFloat(index + (field.rows.count - 20))
-                }
+                .offset(x: 0, y: fieldHeight * CGFloat(index) / 20)
             }
         }
         .animation(.easeIn(duration: 0.125), value: field)
+    }
+}
+
+
+private struct FieldHeightPreferenceData: Equatable {
+    let height: CGFloat
+}
+
+private struct FieldHeightPreferenceKey: PreferenceKey {
+    typealias Value = FieldHeightPreferenceData
+
+    static var defaultValue: FieldHeightPreferenceData = .init(height: 0)
+    static func reduce(value: inout FieldHeightPreferenceData, nextValue: () -> FieldHeightPreferenceData) {
+        value = nextValue()
     }
 }
 
