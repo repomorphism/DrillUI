@@ -19,7 +19,7 @@ struct ContentView: View {
         HStack(spacing: 0) {
             Spacer(minLength: 0)
             VStack {
-                GameView()
+                GameView(viewModel: controller.viewModel)
                 Spacer(minLength: 0)
             }
             .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))

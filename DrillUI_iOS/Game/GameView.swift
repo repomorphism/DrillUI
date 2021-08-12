@@ -11,6 +11,10 @@ import DrillUILib
 
 struct GameView: View {
 
+
+    @ObservedObject var viewModel: GameplayController.ViewModel
+
+
     @EnvironmentObject var controller: GameplayController
 
     var body: some View {
@@ -18,7 +22,7 @@ struct GameView: View {
             Spacer(minLength: 0)
             HoldPieceView(type: controller.state.hold)
             Spacer(minLength: 0)
-            FieldView(displayField: controller.displayField, playPiece: controller.playPiece)
+            FieldView(displayField: viewModel.displayField, playPiece: controller.playPiece)
             Spacer(minLength: 0)
             NextPiecesView(nextPieceTypes: controller.state.nextPieceTypes)
             Spacer(minLength: 0)
@@ -31,7 +35,8 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        let controller = GameplayController()
+        GameView(viewModel: controller.viewModel)
             .background(Color(white: 0.05))
             .previewLayout(.sizeThatFits)
     }

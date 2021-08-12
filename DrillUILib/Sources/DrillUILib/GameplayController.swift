@@ -15,6 +15,8 @@ public typealias ActionVisits = MCTSTree<GameState>.ActionVisits
 
 public final class GameplayController: ObservableObject {
 
+    public let viewModel: ViewModel
+
     @Published public var state: GameState
     @Published public var legalMoves: [ActionVisits] = []
     @Published public var playPieceType: Tetromino?
@@ -34,8 +36,12 @@ public final class GameplayController: ObservableObject {
         self.state = state
         self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
         self.playPieceType = state.playPieceType
-        self.displayField = DisplayField(from: state.field)
+        let displayField = DisplayField(from: state.field)
+        self.displayField = displayField
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
+
+        self.viewModel = ViewModel(displayField: displayField)
+
         defer {
             self.bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
         }
@@ -125,6 +131,7 @@ private extension GameplayController {
     func update(state: GameState, displayField: DisplayField, playPieceType: Tetromino?) {
         self.state = state
         self.displayField = displayField
+        viewModel.displayField = displayField
         self.playPieceType = playPieceType
     }
 
