@@ -36,6 +36,7 @@ struct FieldView: View {
             }
         }
         .clipped()  // Hide >20 rows when animating new garbage
+        .drawingGroup()
     }
 }
 
