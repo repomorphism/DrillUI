@@ -32,14 +32,17 @@ struct FieldRowsView: View {
                     ForEach(0 ..< row.cells.count) { i in
                         MinoCellView(type: row.cells[i])
                             .transition(.identity)
-                            .opacity(row.isFilled ? 0 : 1)
                     }
                 }
                 .aspectRatio(10, contentMode: .fit)
                 .transition(.identity)
+                .opacity(row.isFilled ? 0 : 1)
+                .scaleEffect(row.isFilled ? 1.1 : 1)
+                .blur(radius: row.isFilled ? 16 : 0)
                 .offset(x: 0, y: fieldHeight * CGFloat(index) / 20)
             }
         }
+        .drawingGroup()
         .animation(.easeIn(duration: 0.125), value: field)
     }
 }
