@@ -22,7 +22,7 @@ struct GameView: View {
             Spacer(minLength: 0)
             HoldPieceView(type: controller.state.hold)
             Spacer(minLength: 0)
-            FieldView(displayField: viewModel.displayField, playPiece: controller.playPiece)
+            FieldView(displayField: viewModel.displayField, playPiece: viewModel.playPiece)
             Spacer(minLength: 0)
             NextPiecesView(nextPieceTypes: controller.state.nextPieceTypes)
             Spacer(minLength: 0)

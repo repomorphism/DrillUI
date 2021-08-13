@@ -19,12 +19,6 @@ public final class GameplayController: ObservableObject {
 
     @Published public var state: GameState
     @Published public var legalMoves: [ActionVisits] = []
-    @Published public var playPieceType: Tetromino?
-    @Published public var displayField: DisplayField  // Update this whenever state changes
-
-    public var playPiece: Piece? {
-        playPieceType.map { Piece(type: $0, x: 4, y: 18, orientation: .up) }
-    }
 
     private var bot: GeneratorBot<BCTSEvaluator>
     private var timerSubscription: Cancellable?
@@ -35,12 +29,12 @@ public final class GameplayController: ObservableObject {
         let evaluator = BCTSEvaluator()
         self.state = state
         self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
-        self.playPieceType = state.playPieceType
         let displayField = DisplayField(from: state.field)
-        self.displayField = displayField
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
 
-        self.viewModel = ViewModel(displayField: displayField)
+        let viewModel = ViewModel(displayField: displayField)
+        viewModel.playPiece = Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)
+        self.viewModel = viewModel
 
         defer {
             self.bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
@@ -59,8 +53,8 @@ public extension GameplayController {
         let evaluator = BCTSEvaluator()
         state = newState
         legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
-        playPieceType = state.playPieceType
-        displayField = DisplayField(from: state.field)
+        viewModel.displayField = DisplayField(from: state.field)
+        viewModel.playPiece = Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)
         bot = GeneratorBot(initialState: state, evaluator: evaluator)
         bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
     }
@@ -101,7 +95,7 @@ private extension GameplayController {
     }
 
     func animatePlay(newState: GameState, piece: Piece) async {
-        var newDisplayField = displayField.nextDisplayField(placing: piece, matching: newState.field)
+        var newDisplayField = viewModel.displayField.nextDisplayField(placing: piece, matching: newState.field)
         if let normalizedField = newDisplayField.normalizedDisplayField() {
             // Animate line clear
             // Set all rows as not filled first before animation
@@ -130,9 +124,8 @@ private extension GameplayController {
     @MainActor
     func update(state: GameState, displayField: DisplayField, playPieceType: Tetromino?) {
         self.state = state
-        self.displayField = displayField
         viewModel.displayField = displayField
-        self.playPieceType = playPieceType
+        viewModel.playPiece = playPieceType.map { Piece(type: $0, x: 4, y: 18, orientation: .up) }
     }
 
     func shouldAutoplay() -> Bool {

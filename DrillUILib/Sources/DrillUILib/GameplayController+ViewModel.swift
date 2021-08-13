@@ -6,13 +6,14 @@
 //
 
 import Foundation
-//import Combine
+import DrillAI
 
 
 extension GameplayController {
     public final class ViewModel: ObservableObject {
 
         @Published public var displayField: DisplayField
+        @Published public var playPiece: Piece?
 
         init(displayField: DisplayField) {
             self.displayField = displayField
