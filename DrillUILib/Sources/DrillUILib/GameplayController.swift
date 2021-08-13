@@ -64,11 +64,11 @@ public extension GameplayController {
 
         Task {
             let newState = await bot.advance(with: piece)
+            await updateLegalMoves()
             if resumeThinkingAfterPlay, legalMoves.count > 0 {
                 startThinking()
             }
-            // Bot state & controller is briefly mismatched
-            await animatePlay(newState: newState, piece: piece)
+            await viewModel.update(newState: newState, placed: piece)
         }
     }
 }
@@ -80,42 +80,6 @@ private extension GameplayController {
         await MainActor.run {
             self.legalMoves = legalMoves
         }
-    }
-
-    func animatePlay(newState: GameState, piece: Piece) async {
-        var newDisplayField = viewModel.displayField.nextDisplayField(placing: piece, matching: newState.field)
-        if let normalizedField = newDisplayField.normalizedDisplayField() {
-            // Animate line clear
-            // Set all rows as not filled first before animation
-            let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
-            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = false }
-            await update(state: state, displayField: newDisplayField, playPieceType: nil)
-            await Task.sleep(10_000_000)
-
-            // Animate row clears (in-place)
-            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
-            await update(state: state, displayField: newDisplayField, playPieceType: nil)
-            await Task.sleep(125_000_000)
-
-            // Animate row rearrangement
-            await update(state: newState, displayField: normalizedField, playPieceType: newState.playPieceType)
-            await Task.sleep(125_000_000)
-        } else {
-            // No line clear (so normalizing returns nil)
-            await update(state: newState, displayField: newDisplayField, playPieceType: newState.playPieceType)
-        }
-
-        await updateLegalMoves()
-
-    }
-
-    @MainActor
-    func update(state: GameState, displayField: DisplayField, playPieceType: Tetromino?) {
-        self.state = state
-        viewModel.displayField = displayField
-        viewModel.playPiece = playPieceType.map { Piece(type: $0, x: 4, y: 18, orientation: .up) }
-        viewModel.hold = state.hold
-        viewModel.nextPieceTypes = state.nextPieceTypes
     }
 
     func shouldAutoplay() -> Bool {
