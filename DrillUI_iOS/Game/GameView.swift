@@ -11,11 +11,7 @@ import DrillUILib
 
 struct GameView: View {
 
-
     @ObservedObject var viewModel: GameplayController.ViewModel
-
-
-    @EnvironmentObject var controller: GameplayController
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
