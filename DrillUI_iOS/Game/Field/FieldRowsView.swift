@@ -22,10 +22,10 @@ struct FieldRowsView: View {
                 .overlay(GeometryReader { proxy in
                     Color.clear
                         .preference(key: FieldHeightPreferenceKey.self,
-                                    value: FieldHeightPreferenceData(height: proxy.size.height))
+                                    value: proxy.size.height)
                 })
-                .onPreferenceChange(FieldHeightPreferenceKey.self) { preferences in
-                    fieldHeight = preferences.height
+                .onPreferenceChange(FieldHeightPreferenceKey.self) { height in
+                    fieldHeight = height
                 }
             ForEach(Array(field.rows.enumerated()), id: \.1.id) { (index, row) in
                 HStack(spacing: 0) {
@@ -45,15 +45,11 @@ struct FieldRowsView: View {
 }
 
 
-private struct FieldHeightPreferenceData: Equatable {
-    let height: CGFloat
-}
-
 private struct FieldHeightPreferenceKey: PreferenceKey {
-    typealias Value = FieldHeightPreferenceData
+    typealias Value = CGFloat
 
-    static var defaultValue: FieldHeightPreferenceData = .init(height: 0)
-    static func reduce(value: inout FieldHeightPreferenceData, nextValue: () -> FieldHeightPreferenceData) {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
     }
 }
