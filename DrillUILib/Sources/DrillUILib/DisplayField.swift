@@ -33,6 +33,10 @@ extension DisplayField {
 
 
 public extension DisplayField {
+    init() {
+        self.init(field: Field(), rows: [])
+    }
+
     init(from field: Field) {
         // Fill to 20 rows
         let filledStorage = [Int16](repeating: 0, count: 20 - field.height) + field.storage.reversed()

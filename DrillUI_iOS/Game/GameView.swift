@@ -11,16 +11,16 @@ import DrillUILib
 
 struct GameView: View {
 
-    @EnvironmentObject var controller: GameplayController
+    @ObservedObject var viewModel: GameplayController.ViewModel
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             Spacer(minLength: 0)
-            HoldPieceView(type: controller.state.hold)
+            HoldPieceView(type: viewModel.hold)
             Spacer(minLength: 0)
-            FieldView(displayField: controller.displayField, playPiece: controller.playPiece)
+            FieldView(displayField: viewModel.displayField, playPiece: viewModel.playPiece)
             Spacer(minLength: 0)
-            NextPiecesView(nextPieceTypes: controller.state.nextPieceTypes)
+            NextPiecesView(nextPieceTypes: viewModel.nextPieceTypes)
             Spacer(minLength: 0)
         }
         // A 0.92 ratio is just about enough, extra widths go into spacers.
@@ -31,7 +31,8 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        let controller = GameplayController()
+        GameView(viewModel: controller.viewModel)
             .background(Color(white: 0.05))
             .previewLayout(.sizeThatFits)
     }

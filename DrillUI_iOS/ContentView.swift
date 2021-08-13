@@ -13,13 +13,13 @@ struct ContentView: View {
 
     @EnvironmentObject var controller: GameplayController
 
-    @State private var outputs: [ConsoleOutput] = []
+//    @State private var outputs: [ConsoleOutput] = []
 
     var body: some View {
         HStack(spacing: 0) {
             Spacer(minLength: 0)
             VStack {
-                GameView()
+                GameView(viewModel: controller.viewModel)
                 Spacer(minLength: 0)
             }
             .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
@@ -35,11 +35,11 @@ struct ContentView: View {
         }
         .background(Color(white: 0.05))
         .ignoresSafeArea()
-        .onAppear {
-            outputs.append(contentsOf: [
-                ConsoleOutput("New Game!"),
-                ConsoleOutput(controller.field.debugDescription)])
-        }
+//        .onAppear {
+//            outputs.append(contentsOf: [
+//                ConsoleOutput("New Game!"),
+//                ConsoleOutput(controller.field.debugDescription)])
+//        }
     }
 }
 
@@ -48,7 +48,7 @@ private extension ContentView {
         switch action {
         case .newGame(let count):
             controller.startNewGame(garbageCount: count)
-            outputs = [ConsoleOutput("New Game!"), ConsoleOutput(controller.field.debugDescription)]
+//            outputs = [ConsoleOutput("New Game!"), ConsoleOutput(controller.field.debugDescription)]
 
         case .botStartThinking:
             controller.startThinking()
