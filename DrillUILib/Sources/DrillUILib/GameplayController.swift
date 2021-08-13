@@ -142,7 +142,7 @@ private extension GameplayController {
         let ratio = Double(topVisits) / Double(totalN + 1)
         let bonus = Int(max(0, ratio - 0.5) * Double(topVisits))
 
-        if totalN + bonus > 20_000 {
+        if totalN + bonus > 40_000 {
             return true
         }
 
