@@ -20,11 +20,11 @@ struct GameView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             Spacer(minLength: 0)
-            HoldPieceView(type: controller.state.hold)
+            HoldPieceView(type: viewModel.hold)
             Spacer(minLength: 0)
             FieldView(displayField: viewModel.displayField, playPiece: viewModel.playPiece)
             Spacer(minLength: 0)
-            NextPiecesView(nextPieceTypes: controller.state.nextPieceTypes)
+            NextPiecesView(nextPieceTypes: viewModel.nextPieceTypes)
             Spacer(minLength: 0)
         }
         // A 0.92 ratio is just about enough, extra widths go into spacers.

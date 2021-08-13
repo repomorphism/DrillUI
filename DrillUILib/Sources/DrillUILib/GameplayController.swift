@@ -17,9 +17,9 @@ public final class GameplayController: ObservableObject {
 
     public let viewModel: ViewModel
 
-    @Published public var state: GameState
     @Published public var legalMoves: [ActionVisits] = []
 
+    private var state: GameState
     private var bot: GeneratorBot<BCTSEvaluator>
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
@@ -34,6 +34,8 @@ public final class GameplayController: ObservableObject {
 
         let viewModel = ViewModel(displayField: displayField)
         viewModel.playPiece = Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)
+        viewModel.hold = state.hold
+        viewModel.nextPieceTypes = state.nextPieceTypes
         self.viewModel = viewModel
 
         defer {
@@ -55,6 +57,8 @@ public extension GameplayController {
         legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
         viewModel.displayField = DisplayField(from: state.field)
         viewModel.playPiece = Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)
+        viewModel.hold = state.hold
+        viewModel.nextPieceTypes = state.nextPieceTypes
         bot = GeneratorBot(initialState: state, evaluator: evaluator)
         bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
     }
@@ -126,6 +130,8 @@ private extension GameplayController {
         self.state = state
         viewModel.displayField = displayField
         viewModel.playPiece = playPieceType.map { Piece(type: $0, x: 4, y: 18, orientation: .up) }
+        viewModel.hold = state.hold
+        viewModel.nextPieceTypes = state.nextPieceTypes
     }
 
     func shouldAutoplay() -> Bool {
