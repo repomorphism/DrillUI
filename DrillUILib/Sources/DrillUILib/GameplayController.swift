@@ -15,9 +15,9 @@ public typealias ActionVisits = MCTSTree<GameState>.ActionVisits
 
 public final class GameplayController: ObservableObject {
 
-    public let viewModel: ViewModel
-
     @Published public var legalMoves: [ActionVisits] = []
+
+    public let viewModel: ViewModel
 
     private var state: GameState
     private var bot: GeneratorBot<BCTSEvaluator>
@@ -27,38 +27,22 @@ public final class GameplayController: ObservableObject {
     public init() {
         let state = GameState(garbageCount: 8)
         let evaluator = BCTSEvaluator()
-        self.state = state
         self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
-        let displayField = DisplayField(from: state.field)
+        self.viewModel = ViewModel(state: state)
+        self.state = state
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
-
-        let viewModel = ViewModel(displayField: displayField)
-        viewModel.playPiece = Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)
-        viewModel.hold = state.hold
-        viewModel.nextPieceTypes = state.nextPieceTypes
-        self.viewModel = viewModel
-
-        defer {
-            self.bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
-        }
+        self.bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
     }
 }
 
 
 public extension GameplayController {
-    var field: Field {
-        state.field
-    }
-
     func startNewGame(garbageCount count: Int) {
         let newState = GameState(garbageCount: count)
         let evaluator = BCTSEvaluator()
         state = newState
         legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
-        viewModel.displayField = DisplayField(from: state.field)
-        viewModel.playPiece = Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)
-        viewModel.hold = state.hold
-        viewModel.nextPieceTypes = state.nextPieceTypes
+        viewModel.reset(to: state)
         bot = GeneratorBot(initialState: state, evaluator: evaluator)
         bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
     }

@@ -17,9 +17,20 @@ extension GameplayController {
         @Published public var hold: Tetromino?
         @Published public var nextPieceTypes: [Tetromino] = []
 
-        init(displayField: DisplayField) {
-            self.displayField = displayField
+        init(state: GameState) {
+            reset(to: state)
         }
     }
+}
+
+
+public extension GameplayController.ViewModel {
+    func reset(to state: GameState) {
+        displayField = DisplayField(from: state.field)
+        playPiece = Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)
+        hold = state.hold
+        nextPieceTypes = state.nextPieceTypes
+    }
+
 }
 
