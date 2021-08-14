@@ -17,7 +17,7 @@ public final class GameplayController: ObservableObject {
 
     @Published public var legalMoves: [ActionVisits] = []
 
-    public let viewModel: ViewModel
+    public let viewModel: ViewModel = .init()
 
     private var bot: GeneratorBot<BCTSEvaluator>
     private var timerSubscription: Cancellable?
@@ -25,12 +25,9 @@ public final class GameplayController: ObservableObject {
 
     public init() {
         let state = GameState(garbageCount: 6)
-        let evaluator = BCTSEvaluator()
-        self.viewModel = ViewModel(state: state)
-        self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
-        defer {
-            Task { await updateLegalMoves() }
-        }
+        viewModel.reset(to: state)
+        self.bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        Task { await updateLegalMoves() }
     }
 }
 
@@ -38,9 +35,8 @@ public final class GameplayController: ObservableObject {
 public extension GameplayController {
     func startNewGame(garbageCount count: Int) {
         let state = GameState(garbageCount: count)
-        let evaluator = BCTSEvaluator()
         viewModel.reset(to: state)
-        bot = GeneratorBot(initialState: state, evaluator: evaluator)
+        bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
         Task { await updateLegalMoves() }
     }
 

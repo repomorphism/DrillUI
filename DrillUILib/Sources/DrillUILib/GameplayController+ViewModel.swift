@@ -11,16 +11,11 @@ import DrillAI
 
 extension GameplayController {
     public final class ViewModel: ObservableObject {
-
         @Published public var displayField: DisplayField = .init()
         @Published public var playPiece: Piece?
         @Published public var hold: Tetromino?
         @Published public var nextPieceTypes: [Tetromino] = []
         @Published public var dropCount: Int = 0
-
-        init(state: GameState) {
-            reset(to: state)
-        }
     }
 }
 
