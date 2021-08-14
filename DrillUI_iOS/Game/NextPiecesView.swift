@@ -27,18 +27,17 @@ struct NextPiecesView: View {
                     .border(Color(white: 0.75), width: 1.0)
                     .padding(1)
                 VStack(spacing: 0) {
-                     ForEach(0 ..< nextPieceTypes.count) { i in
-                         let type = nextPieceTypes[i]
-                         ZStack {
-                             Rectangle()
-                                 .fill(.clear)
-                                 .aspectRatio(4 / 3, contentMode: .fit)
-                             PieceView(piece: Piece(type: type, x: 0, y: 0, orientation: .up))
-                                 .aspectRatio(4 / 2, contentMode: .fit)
-                         }
-                         .padding(EdgeInsets(top: 0, leading: 2, bottom: 0, trailing: 2))
-                     }
-                 }
+                    ForEach(Array(nextPieceTypes.enumerated()), id: \.0) { (index, type) in
+                        ZStack {
+                            Rectangle()
+                                .fill(.clear)
+                                .aspectRatio(4 / 3, contentMode: .fit)
+                            PieceView(piece: Piece(type: type, x: 0, y: 0, orientation: .up))
+                                .aspectRatio(4 / 2, contentMode: .fit)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 2, bottom: 0, trailing: 2))
+                    }
+                }
             }
         }
     }
