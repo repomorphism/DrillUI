@@ -22,6 +22,7 @@ public final class GameplayController: ObservableObject {
     private var bot: GeneratorBot<BCTSEvaluator>
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
+    private var shouldBeThinking: Bool = false
 
     public init() {
         let state = GameState(garbageCount: 6)
@@ -41,27 +42,26 @@ public extension GameplayController {
     }
 
     func startThinking() {
-        bot.startThinking()
-        thinkingStartTime = .now
-        startTimer()
+        shouldBeThinking = true
+        startBotAndTimer()
     }
 
     func stopThinking() {
-        bot.stopThinking()
-        stopTimer()
+        shouldBeThinking = false
+        stopBotAndTimer()
     }
 
-    func play(_ piece: Piece, resumeThinkingAfterPlay: Bool? = nil) {
-        let resumeThinkingAfterPlay = resumeThinkingAfterPlay ?? bot.isThinking
-        stopThinking()
+    func play(_ piece: Piece) {
+        stopBotAndTimer()
 
         Task {
             let newState = await bot.advance(with: piece)
             await updateLegalMoves()
-            if resumeThinkingAfterPlay, legalMoves.count > 0 {
-                startThinking()
-            } else {
-                await updateLegalMoves()
+            if legalMoves.count == 0 {
+                shouldBeThinking = false
+            }
+            if shouldBeThinking {
+                startBotAndTimer()
             }
             await viewModel.update(newState: newState, placed: piece)
         }
@@ -70,6 +70,21 @@ public extension GameplayController {
 
 
 private extension GameplayController {
+    func startBotAndTimer() {
+        bot.startThinking()
+        thinkingStartTime = .now
+        timerSubscription = Timer.publish(every: 0.3, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.performAutoplay()
+            }
+    }
+
+    func stopBotAndTimer() {
+        bot.stopThinking()
+        timerSubscription = nil
+    }
+
     func updateLegalMoves() async {
         let legalMoves = await self.bot.getActions()
         await MainActor.run {
@@ -105,30 +120,21 @@ private extension GameplayController {
 
     func performAutoplay() {
         if shouldAutoplay() {
-            stopThinking()
-            let topAction = legalMoves[0].action
+            stopBotAndTimer()
             Task {
+                await updateLegalMoves()
                 // Before the view model could handle animation queue, give it time
-                // for line clear animation
+                // for line clear animation, and user might get a climpse of the
+                // action list
                 await Task.sleep(250_000_000)
-                play(topAction, resumeThinkingAfterPlay: true)
+                let topAction = legalMoves[0].action
+                play(topAction)
+            }
+        } else {
+            Task {
+                await updateLegalMoves()
             }
         }
-    }
-
-    func startTimer() {
-        timerSubscription = Timer.publish(every: 0.3, on: .main, in: .common)
-            .autoconnect()
-            .sink { _ in
-                Task { [weak self] in
-                    await self?.updateLegalMoves()
-                    self?.performAutoplay()
-                }
-            }
-    }
-
-    func stopTimer() {
-        timerSubscription = nil
     }
 }
 
