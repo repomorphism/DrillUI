@@ -25,13 +25,14 @@ public final class GameplayController: ObservableObject {
     private var thinkingStartTime: Date = .now
 
     public init() {
-        let state = GameState(garbageCount: 8)
+        let state = GameState(garbageCount: 6)
         let evaluator = BCTSEvaluator()
-        self.legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
         self.viewModel = ViewModel(state: state)
         self.state = state
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
-        self.bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
+        defer {
+            Task { await updateLegalMoves() }
+        }
     }
 }
 
@@ -41,16 +42,15 @@ public extension GameplayController {
         let newState = GameState(garbageCount: count)
         let evaluator = BCTSEvaluator()
         state = newState
-        legalMoves = state.getLegalActions().map { ActionVisits(action: $0, visits: 0) }
         viewModel.reset(to: state)
         bot = GeneratorBot(initialState: state, evaluator: evaluator)
-        bot.autoStopAction = { [weak self] in self?.handleBotAutoStop() }
+        Task { await updateLegalMoves() }
     }
 
     func startThinking() {
         bot.startThinking()
-        startTimer()
         thinkingStartTime = .now
+        startTimer()
     }
 
     func stopThinking() {
@@ -67,6 +67,8 @@ public extension GameplayController {
             await updateLegalMoves()
             if resumeThinkingAfterPlay, legalMoves.count > 0 {
                 startThinking()
+            } else {
+                await updateLegalMoves()
             }
             await viewModel.update(newState: newState, placed: piece)
         }
@@ -83,8 +85,12 @@ private extension GameplayController {
     }
 
     func shouldAutoplay() -> Bool {
-        guard legalMoves.count >= 2 else { return false }
-        let topVisits = legalMoves[0].visits
+        guard legalMoves.count > 0 else { return false }
+
+        // Condition 0: Bot has stopped thinking
+        if !bot.isThinking {
+            return true
+        }
 
         // Condition 1: Thought for over 5 seconds
         if thinkingStartTime.timeIntervalSinceNow < -5 {
@@ -93,6 +99,7 @@ private extension GameplayController {
 
         // Condition 2: 20k total including some "decisiveness" bonus
         let totalN = legalMoves.map(\.visits).reduce(0, +)
+        let topVisits = legalMoves[0].visits
         let ratio = Double(topVisits) / Double(totalN + 1)
         let bonus = Int(max(0, ratio - 0.5) * Double(topVisits))
 
@@ -108,25 +115,16 @@ private extension GameplayController {
             stopThinking()
             let topAction = legalMoves[0].action
             Task {
-                await Task.sleep(500_000_000)
-                play(topAction, resumeThinkingAfterPlay: true)
-            }
-        }
-    }
-
-    func handleBotAutoStop() {
-        stopTimer()
-        Task {
-            await updateLegalMoves()
-            await Task.sleep(500_000_000)
-            if let topAction = legalMoves.first?.action {
+                // Before the view model could handle animation queue, give it time
+                // for line clear animation
+                await Task.sleep(250_000_000)
                 play(topAction, resumeThinkingAfterPlay: true)
             }
         }
     }
 
     func startTimer() {
-        timerSubscription = Timer.publish(every: 1.0, on: .main, in: .common)
+        timerSubscription = Timer.publish(every: 0.3, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
                 Task { [weak self] in
