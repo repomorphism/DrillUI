@@ -42,6 +42,7 @@ public extension GameplayController {
     }
 
     func startThinking() {
+        guard !legalMoves.isEmpty else { return }
         shouldBeThinking = true
         startBotAndTimer()
     }
@@ -57,9 +58,6 @@ public extension GameplayController {
         Task {
             let newState = await bot.advance(with: piece)
             await updateLegalMoves()
-            if legalMoves.count == 0 {
-                shouldBeThinking = false
-            }
             if shouldBeThinking {
                 startBotAndTimer()
             }
@@ -87,13 +85,16 @@ private extension GameplayController {
 
     func updateLegalMoves() async {
         let legalMoves = await self.bot.getActions()
+        if shouldBeThinking && legalMoves.isEmpty {
+            shouldBeThinking = false
+        }
         await MainActor.run {
             self.legalMoves = legalMoves
         }
     }
 
     func shouldAutoplay() -> Bool {
-        guard legalMoves.count > 0 else { return false }
+        guard !legalMoves.isEmpty else { return false }
 
         // Condition 0: Bot has stopped thinking
         if !bot.isThinking {
