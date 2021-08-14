@@ -35,6 +35,8 @@ public final class GameplayController: ObservableObject {
 
 public extension GameplayController {
     func startNewGame(garbageCount count: Int) {
+        stopThinking()
+
         let state = GameState(garbageCount: count)
         viewModel.reset(to: state)
         bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
@@ -128,8 +130,11 @@ private extension GameplayController {
                 // for line clear animation, and user might get a climpse of the
                 // action list
                 await Task.sleep(250_000_000)
-                let topAction = legalMoves[0].action
-                play(topAction)
+                // Recheck assumption; auto play is part of "thinking"
+                if shouldBeThinking {
+                    let topAction = legalMoves[0].action
+                    play(topAction)
+                }
             }
         } else {
             Task {
