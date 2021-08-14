@@ -63,7 +63,7 @@ public extension GameplayController {
             if shouldBeThinking {
                 startBotAndTimer()
             }
-            await viewModel.update(newState: newState, placed: piece)
+            viewModel.update(newState: newState, placed: piece)
         }
     }
 }
