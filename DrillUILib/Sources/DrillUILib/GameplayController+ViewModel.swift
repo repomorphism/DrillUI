@@ -16,6 +16,7 @@ extension GameplayController {
         @Published public var playPiece: Piece?
         @Published public var hold: Tetromino?
         @Published public var nextPieceTypes: [Tetromino] = []
+        @Published public var dropCount: Int = 0
 
         init(state: GameState) {
             reset(to: state)
@@ -36,6 +37,7 @@ public extension GameplayController.ViewModel {
         var newDisplayField = displayField.nextDisplayField(placing: piece, matching: newState.field)
         let newPlayPiece = Piece(type: newState.playPieceType, x: 4, y: 18, orientation: .up)
         await set(hold: newState.hold)
+        await set(dropCount: newState.dropCount)
         if let normalizedField = newDisplayField.normalizedDisplayField() {
             // Animate line clear
             // Set all rows as not filled first before animation
@@ -73,6 +75,10 @@ private extension GameplayController.ViewModel {
 
     @MainActor func set(nextPieceTypes: [Tetromino]) {
         self.nextPieceTypes = nextPieceTypes
+    }
+
+    @MainActor func set(dropCount: Int) {
+        self.dropCount = dropCount
     }
 }
 

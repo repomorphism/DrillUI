@@ -14,7 +14,7 @@ struct FieldView: View {
 
     let displayField: DisplayField
     let playPiece: Piece?
-    
+
     var body: some View {
         ZStack {
             GridLinesView()
