@@ -13,12 +13,15 @@ struct GameView: View {
 
     @ObservedObject var viewModel: GameplayController.ViewModel
 
+    @State private var dropCount: Int = 0
+
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             Spacer(minLength: 0)
             HoldPieceView(type: viewModel.hold)
             Spacer(minLength: 0)
             FieldView(displayField: viewModel.displayField, playPiece: viewModel.playPiece)
+                .sinkEffect(sinkNumber: CGFloat(dropCount))
             Spacer(minLength: 0)
             NextPiecesView(nextPieceTypes: viewModel.nextPieceTypes)
             Spacer(minLength: 0)
@@ -26,6 +29,15 @@ struct GameView: View {
         // A 0.92 ratio is just about enough, extra widths go into spacers.
         // If not wide enough, one of them will shrink to incorrect size.
         .aspectRatio(0.925, contentMode: .fit)
+        .onChange(of: viewModel.dropCount) { dropCount in
+            if dropCount < self.dropCount {
+                self.dropCount = dropCount
+            } else {
+                withAnimation(.easeOut(duration: 1)) {
+                    self.dropCount = dropCount
+                }
+            }
+        }
     }
 }
 
