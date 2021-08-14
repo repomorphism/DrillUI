@@ -19,7 +19,6 @@ public final class GameplayController: ObservableObject {
 
     public let viewModel: ViewModel
 
-    private var state: GameState
     private var bot: GeneratorBot<BCTSEvaluator>
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
@@ -28,7 +27,6 @@ public final class GameplayController: ObservableObject {
         let state = GameState(garbageCount: 6)
         let evaluator = BCTSEvaluator()
         self.viewModel = ViewModel(state: state)
-        self.state = state
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
         defer {
             Task { await updateLegalMoves() }
@@ -39,9 +37,8 @@ public final class GameplayController: ObservableObject {
 
 public extension GameplayController {
     func startNewGame(garbageCount count: Int) {
-        let newState = GameState(garbageCount: count)
+        let state = GameState(garbageCount: count)
         let evaluator = BCTSEvaluator()
-        state = newState
         viewModel.reset(to: state)
         bot = GeneratorBot(initialState: state, evaluator: evaluator)
         Task { await updateLegalMoves() }
