@@ -18,7 +18,14 @@ struct GameView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             Spacer(minLength: 0)
-            HoldPieceView(type: viewModel.hold)
+            VStack {
+                HoldPieceView(type: viewModel.hold)
+                Spacer()
+                Text("\(dropCount)")
+                    .font(.title)
+                    .foregroundColor(.init(white: 0.9))
+                    .padding()
+            }
             Spacer(minLength: 0)
             FieldView(displayField: viewModel.displayField, playPiece: viewModel.playPiece)
                 .sinkEffect(sinkNumber: CGFloat(dropCount))
