@@ -16,13 +16,13 @@ public typealias ActionVisits = MCTSTree<GameState>.ActionVisits
 public final class GameplayController: ObservableObject {
 
     @Published public var legalMoves: [ActionVisits] = []
+    @Published public private(set) var isActive: Bool = false
 
     public let viewModel: ViewModel = .init()
 
     private var bot: GeneratorBot<BCTSEvaluator>
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
-    private var shouldBeThinking: Bool = false
 
     public init() {
         let state = GameState(garbageCount: 6)
@@ -45,12 +45,12 @@ public extension GameplayController {
 
     func startThinking() {
         guard !legalMoves.isEmpty else { return }
-        shouldBeThinking = true
+        isActive = true
         startBotAndTimer()
     }
 
     func stopThinking() {
-        shouldBeThinking = false
+        isActive = false
         stopBotAndTimer()
     }
 
@@ -60,7 +60,7 @@ public extension GameplayController {
         Task {
             let newState = await bot.advance(with: piece)
             await updateLegalMoves()
-            if shouldBeThinking {
+            if isActive {
                 startBotAndTimer()
             }
             viewModel.update(newState: newState, placed: piece)
@@ -87,11 +87,11 @@ private extension GameplayController {
 
     func updateLegalMoves() async {
         let legalMoves = await self.bot.getActions()
-        if shouldBeThinking && legalMoves.isEmpty {
-            shouldBeThinking = false
-        }
         await MainActor.run {
             self.legalMoves = legalMoves
+            if isActive && legalMoves.isEmpty {
+                isActive = false
+            }
         }
     }
 
@@ -127,7 +127,7 @@ private extension GameplayController {
             Task {
                 await updateLegalMoves()
                 // Recheck assumption; auto play is part of "thinking"
-                if shouldBeThinking {
+                if isActive {
                     let topAction = legalMoves[0].action
                     play(topAction)
                 }
