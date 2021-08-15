@@ -25,7 +25,8 @@ struct ContentView: View {
             .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
             Spacer(minLength: 0)
             ControlView(controlAction: handleControlAction,
-                        legalMoves: controller.legalMoves)
+                        legalMoves: controller.legalMoves,
+                        isBotActive: controller.isActive)
                 .frame(width: 300)
                 .background(.black)
                 .foregroundColor(.init(white: 0.9))

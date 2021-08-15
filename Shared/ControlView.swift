@@ -20,6 +20,7 @@ struct ControlView: View {
 
     let controlAction: (ActionType) -> Void
     let legalMoves: [ActionVisits]
+    let isBotActive: Bool
 
     var body: some View {
         VStack(spacing: 8) {
@@ -27,8 +28,14 @@ struct ControlView: View {
             VStack(spacing: 4) {
                 Button("New Game (10)") { controlAction(.newGame(10)) }
                 Button("New Game (18)") { controlAction(.newGame(18)) }
-                Button("Bot Play") { controlAction(.botStartThinking) }
-                Button("Bot Stop") { controlAction(.botStopThinking) }
+                Button {
+                    controlAction(isBotActive ? .botStopThinking : .botStartThinking)
+                } label: {
+                    Image(systemName: isBotActive ? "stop.fill" : "play.fill")
+                        .foregroundColor(isBotActive ? .red : .green)
+                        .font(.system(size: 48))
+                }
+                .padding()
             }
             .foregroundColor(.blue)
             ScrollViewReader { scrollView in
@@ -53,13 +60,6 @@ struct ControlView: View {
                     }
                     .font(.system(.body, design: .monospaced))
                 }
-//                .onChange(of: legalMoves) { _ in
-//                    if let firstMove = legalMoves.first {
-//                        withAnimation {
-//                            scrollView.scrollTo(firstMove.action.code)
-//                        }
-//                    }
-//                }
             }
         }
     }
@@ -75,6 +75,6 @@ extension MCTSTree.ActionVisits: Equatable where State == GameState {
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView(controlAction: { _ in }, legalMoves: [])
+        ControlView(controlAction: { _ in }, legalMoves: [], isBotActive: false)
     }
 }
