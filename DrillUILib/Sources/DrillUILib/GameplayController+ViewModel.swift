@@ -17,6 +17,8 @@ extension GameplayController {
         @Published public var nextPieceTypes: [Tetromino] = []
         @Published public var dropCount: Int = 0
 
+        private var availableTime: Date = .init()
+
         private let queue: OperationQueue = {
             let queue = OperationQueue()
             queue.maxConcurrentOperationCount = 1
@@ -77,7 +79,7 @@ private extension GameplayController.ViewModel {
     }
 
     func enqueue(_ update: UpdateType, delay: Double = 0) {
-        queue.addOperation { [weak self] in
+        let action: () -> Void = { [weak self] in
             DispatchQueue.main.async {
                 switch update {
                 case .setDisplayField(let displayField):
@@ -92,9 +94,15 @@ private extension GameplayController.ViewModel {
                     self?.nextPieceTypes = nextPieceTypes
                 }
             }
-            if delay > 0 {
-                Thread.sleep(forTimeInterval: delay)
-            }
+        }
+        if availableTime <= .now {
+            // Available now
+            queue.addOperation(action)
+            availableTime = .now + delay
+        } else {
+            // Available in the future
+            queue.schedule(after: .init(availableTime), action)
+            availableTime += delay
         }
     }
 }
