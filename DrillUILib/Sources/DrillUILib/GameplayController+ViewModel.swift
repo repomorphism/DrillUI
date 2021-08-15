@@ -49,6 +49,7 @@ public extension GameplayController.ViewModel {
         var newDisplayField = trueDisplayField.nextDisplayField(placing: piece, matching: newState.field)
         let newPlayPiece = Piece(type: newState.playPieceType, x: 4, y: 18, orientation: .up)
         enqueue(.setHold(newState.hold))
+        enqueue(.setPlayPiece(nil))
         enqueue(.setDropCount(newState.dropCount))
         if let normalizedField = newDisplayField.normalizedDisplayField() {
             trueDisplayField = normalizedField
@@ -56,8 +57,7 @@ public extension GameplayController.ViewModel {
             // Set all rows as not filled first before line clear animation
             let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
             clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = false }
-            enqueue(.setPlayPiece(nil))
-            enqueue(.setDisplayField(newDisplayField), delay: 1/60)
+            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
 
             // Animate line clears (in-place)
             clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
@@ -72,7 +72,7 @@ public extension GameplayController.ViewModel {
             // No line clear (so normalizing returns nil)
             enqueue(.setNextPieceTypes(newState.nextPieceTypes))
             enqueue(.setPlayPiece(newPlayPiece))
-            enqueue(.setDisplayField(newDisplayField), delay: 1/60)
+            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
         }
     }
 }
