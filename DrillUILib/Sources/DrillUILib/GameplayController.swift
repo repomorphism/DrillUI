@@ -63,7 +63,7 @@ public extension GameplayController {
             if shouldBeThinking {
                 startBotAndTimer()
             }
-            await viewModel.update(newState: newState, placed: piece)
+            viewModel.update(newState: newState, placed: piece)
         }
     }
 }
@@ -108,7 +108,7 @@ private extension GameplayController {
             return true
         }
 
-        // Condition 2: 20k total including some "decisiveness" bonus
+        // Condition 2: Thought "enough," bonus for "decisiveness"
         let totalN = legalMoves.map(\.visits).reduce(0, +)
         let topVisits = legalMoves[0].visits
         let ratio = Double(topVisits) / Double(totalN + 1)
@@ -126,10 +126,6 @@ private extension GameplayController {
             stopBotAndTimer()
             Task {
                 await updateLegalMoves()
-                // Before the view model could handle animation queue, give it time
-                // for line clear animation, and user might get a climpse of the
-                // action list
-                await Task.sleep(250_000_000)
                 // Recheck assumption; auto play is part of "thinking"
                 if shouldBeThinking {
                     let topAction = legalMoves[0].action

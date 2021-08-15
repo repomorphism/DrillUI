@@ -42,7 +42,7 @@ struct FieldRowsView: View {
                 .offset(x: 0, y: fieldHeight * CGFloat(index) / 20)
             }
         }
-        .animation(.easeIn(duration: 0.125), value: field)
+        .animation(.easeIn(duration: Constant.Timing.lineClear), value: field)
     }
 }
 
