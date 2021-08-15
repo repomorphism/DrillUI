@@ -88,19 +88,19 @@ private extension GameplayController.ViewModel {
     }
 
     func enqueue(_ update: UpdateType, delay: Double = 0) {
-        let action: () -> Void = { [weak self] in
+        let action: () -> Void = {
             DispatchQueue.main.async {
                 switch update {
                 case .setDisplayField(let displayField):
-                    self?.displayField = displayField
+                    self.displayField = displayField    // Capture self is okay
                 case .setPlayPiece(let playPiece):
-                    self?.playPiece = playPiece
+                    self.playPiece = playPiece
                 case .setHold(let hold):
-                    self?.hold = hold
+                    self.hold = hold
                 case .setDropCount(let dropCount):
-                    self?.dropCount = dropCount
+                    self.dropCount = dropCount
                 case .setNextPieceTypes(let nextPieceTypes):
-                    self?.nextPieceTypes = nextPieceTypes
+                    self.nextPieceTypes = nextPieceTypes
                 }
             }
         }
