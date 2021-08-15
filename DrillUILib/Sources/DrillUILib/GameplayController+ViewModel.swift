@@ -17,6 +17,12 @@ extension GameplayController {
         @Published public var nextPieceTypes: [Tetromino] = []
         @Published public var dropCount: Int = 0
 
+        /// This is the field's "source of truth" as the public-facing display
+        /// field is updated over time so it may be consistent when a new
+        /// updates come in before the last update sequence finishes.  The true
+        /// state is set immediately on update, and update sequences always refer
+        /// to the true state as the starting point.
+        private var trueDisplayField: DisplayField = .init()
         private var availableTime: Date = .init()
 
         private let queue: OperationQueue = {
@@ -32,18 +38,20 @@ extension GameplayController {
 public extension GameplayController.ViewModel {
     func reset(to state: GameState) {
         queue.cancelAllOperations()
-        enqueue(.setDisplayField(DisplayField(from: state.field)))
+        trueDisplayField = DisplayField(from: state.field)
+        enqueue(.setDisplayField(trueDisplayField))
         enqueue(.setPlayPiece(Piece(type: state.playPieceType, x: 4, y: 18, orientation: .up)))
         enqueue(.setHold(state.hold))
         enqueue(.setNextPieceTypes(state.nextPieceTypes))
     }
 
     func update(newState: GameState, placed piece: Piece) {
-        var newDisplayField = displayField.nextDisplayField(placing: piece, matching: newState.field)
+        var newDisplayField = trueDisplayField.nextDisplayField(placing: piece, matching: newState.field)
         let newPlayPiece = Piece(type: newState.playPieceType, x: 4, y: 18, orientation: .up)
         enqueue(.setHold(newState.hold))
         enqueue(.setDropCount(newState.dropCount))
         if let normalizedField = newDisplayField.normalizedDisplayField() {
+            trueDisplayField = normalizedField
             // Animate line clear
             // Set all rows as not filled first before line clear animation
             let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
@@ -60,10 +68,11 @@ public extension GameplayController.ViewModel {
             enqueue(.setPlayPiece(newPlayPiece))
             enqueue(.setDisplayField(normalizedField), delay: Constant.Timing.lineClear)
         } else {
+            trueDisplayField = newDisplayField
             // No line clear (so normalizing returns nil)
             enqueue(.setNextPieceTypes(newState.nextPieceTypes))
             enqueue(.setPlayPiece(newPlayPiece))
-            enqueue(.setDisplayField(newDisplayField))
+            enqueue(.setDisplayField(newDisplayField), delay: 1/60)
         }
     }
 }

@@ -126,16 +126,11 @@ private extension GameplayController {
             stopBotAndTimer()
             Task {
                 await updateLegalMoves()
-                // Before the view model could handle animation queue, give it time
-                // for line clear animation, and user might get a climpse of the
-                // action list
-                await Task.sleep(UInt64(Constant.Timing.lineClear * 1e9))
                 // Recheck assumption; auto play is part of "thinking"
                 if shouldBeThinking {
                     let topAction = legalMoves[0].action
                     play(topAction)
                 }
-                await Task.sleep(UInt64(Constant.Timing.lineClear * 1e9))
             }
         } else {
             Task {
