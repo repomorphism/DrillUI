@@ -53,12 +53,12 @@ public extension GameplayController.ViewModel {
 
             // Animate line clears (in-place)
             clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
-            enqueue(.setDisplayField(newDisplayField), delay: 0.125)
+            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.lineClear)
 
             // Animate row rearrangement, bring in next piece
             enqueue(.setNextPieceTypes(newState.nextPieceTypes))
             enqueue(.setPlayPiece(newPlayPiece))
-            enqueue(.setDisplayField(normalizedField), delay: 0.125)
+            enqueue(.setDisplayField(normalizedField), delay: Constant.Timing.lineClear)
         } else {
             // No line clear (so normalizing returns nil)
             enqueue(.setNextPieceTypes(newState.nextPieceTypes))
