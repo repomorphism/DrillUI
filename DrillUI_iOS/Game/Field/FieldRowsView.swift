@@ -27,7 +27,7 @@ struct FieldRowsView: View {
                 .onPreferenceChange(FieldHeightPreferenceKey.self) { height in
                     fieldHeight = height
                 }
-            ForEach(Array(field.rows.enumerated()), id: \.1.id) { (index, row) in
+            ForEach(Array(field.rows)) { row in
                 HStack(spacing: 0) {
                     ForEach(0 ..< row.cells.count) { i in
                         MinoCellView(type: row.cells[i])
@@ -39,7 +39,7 @@ struct FieldRowsView: View {
                 .opacity(row.isFilled ? 0 : 1)
                 .scaleEffect(row.isFilled ? 1.1 : 1)
                 .blur(radius: row.isFilled ? 16 : 0)
-                .offset(x: 0, y: fieldHeight * CGFloat(index) / 20)
+                .offset(x: 0, y: fieldHeight * CGFloat(19 - row.index) / 20)
             }
         }
         .animation(.easeIn(duration: Constant.Timing.lineClear), value: field)

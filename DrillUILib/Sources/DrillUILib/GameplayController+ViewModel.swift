@@ -47,33 +47,54 @@ public extension GameplayController.ViewModel {
 
     func update(newState: GameState, placed piece: Piece) {
         var newDisplayField = trueDisplayField.nextDisplayField(placing: piece, matching: newState.field)
+        enqueue(.setDisplayField(newDisplayField))
+        
+        newDisplayField.reIndexRows()
+//        newDisplayField.removeFilledRows()
+        trueDisplayField = newDisplayField
+
         let newPlayPiece = Piece(type: newState.playPieceType, x: 4, y: 18, orientation: .up)
         enqueue(.setHold(newState.hold))
-        enqueue(.setPlayPiece(nil))
+//        enqueue(.setPlayPiece(nil))
         enqueue(.setDropCount(newState.dropCount))
-        if let normalizedField = newDisplayField.normalizedDisplayField() {
-            trueDisplayField = normalizedField
-            // Animate line clear
-            // Set all rows as not filled first before line clear animation
-            let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
-            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = false }
-            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
 
-            // Animate line clears (in-place)
-            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
-            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.lineClear)
+//        if newDisplayField.reIndexRows() {
+//            enqueue(.setDisplayField(newDisplayField))
+//            newDisplayField.removeFilledRows()
+//            enqueue(.setDisplayField(newDisplayField))
+//        }
+//        enqueue(.setDisplayField(newDisplayField))
+        enqueue(.setPlayPiece(newPlayPiece))
+        enqueue(.setNextPieceTypes(newState.nextPieceTypes), delay: Constant.Timing.lineClear)
 
-            // Animate row rearrangement, bring in next piece
-            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
-            enqueue(.setPlayPiece(newPlayPiece))
-            enqueue(.setDisplayField(normalizedField), delay: Constant.Timing.lineClear)
-        } else {
-            trueDisplayField = newDisplayField
-            // No line clear (so normalizing returns nil)
-            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
-            enqueue(.setPlayPiece(newPlayPiece))
-            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
-        }
+
+
+
+
+
+//        if let normalizedField = newDisplayField.normalizedDisplayField() {
+//            trueDisplayField = normalizedField
+//            // Animate line clear
+//            // Set all rows as not filled first before line clear animation
+//            let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
+//            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = false }
+//            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
+//
+//            // Animate line clears (in-place)
+//            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
+//            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.lineClear)
+//
+//            // Animate row rearrangement, bring in next piece
+//            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
+//            enqueue(.setPlayPiece(newPlayPiece))
+//            enqueue(.setDisplayField(normalizedField), delay: Constant.Timing.lineClear)
+//        } else {
+//            trueDisplayField = newDisplayField
+//            // No line clear (so normalizing returns nil)
+//            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
+//            enqueue(.setPlayPiece(newPlayPiece))
+//            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
+//        }
     }
 }
 
