@@ -78,6 +78,7 @@
 		DA5FE00126B07C7B002A8354 /* WindowAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAccessor.swift; sourceTree = "<group>"; };
 		DA868CC726BAFE0300441CCB /* MinoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinoCellView.swift; sourceTree = "<group>"; };
 		DA98926E26B8697E00712571 /* NextPiecesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPiecesView.swift; sourceTree = "<group>"; };
+		DA9D60AA26CE8FAB00A79996 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		DAA3ABEC26C57ACC0023299D /* DrillUILib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DrillUILib; sourceTree = "<group>"; };
 		DAA3ABEF26C57D2F0023299D /* DrillAI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DrillAI; path = ../DrillAI; sourceTree = "<group>"; };
 		DABBD87926B9D0C0001B0E28 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 		DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DA9D60AA26CE8FAB00A79996 /* README.md */,
 				DABBD87926B9D0C0001B0E28 /* ContentView.swift */,
 				DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */,
 				DAA3ABF126C582860023299D /* Game */,
