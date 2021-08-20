@@ -25,7 +25,7 @@ public final class GameplayController: ObservableObject {
     private var thinkingStartTime: Date = .now
 
     public init() {
-        let state = GameState(garbageCount: 6)
+        let state = GameState(garbageCount: 6, slidesAndTwists: false)
         viewModel.reset(to: state)
         self.bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
         Task { await updateLegalMoves() }
@@ -37,7 +37,7 @@ public extension GameplayController {
     func startNewGame(garbageCount count: Int) {
         stopThinking()
 
-        let state = GameState(garbageCount: count)
+        let state = GameState(garbageCount: count, slidesAndTwists: false)
         viewModel.reset(to: state)
         bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
         Task { await updateLegalMoves() }

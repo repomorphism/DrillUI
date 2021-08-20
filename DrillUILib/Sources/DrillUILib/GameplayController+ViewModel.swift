@@ -46,33 +46,41 @@ public extension GameplayController.ViewModel {
     }
 
     func update(newState: GameState, placed piece: Piece) {
-        var newDisplayField = trueDisplayField.nextDisplayField(placing: piece, matching: newState.field)
+        let newDisplayField = trueDisplayField.nextDisplayField(placing: piece, matching: newState.field)
         let newPlayPiece = Piece(type: newState.playPieceType, x: 4, y: 18, orientation: .up)
+
+        trueDisplayField = newDisplayField
+        let indicesChanged = trueDisplayField.reIndexRows()
+
+        // First the play piece is dropped and gone, merged with the field.
+        // The hold piece might've been swapped out.
+        // A special case is when hold was empty, we're holding the play piece
+        // and dropping the first piece in the preview.  In this situation,
+        // more work is needed to manually show the interim preview next pieces.
+        if hold == nil, newState.hold != nil {
+            let intermediateNextPieceTypes = [nextPieceTypes[1]] + newState.nextPieceTypes.dropLast()
+            enqueue(.setNextPieceTypes(intermediateNextPieceTypes))
+        }
+        enqueue(.setDropCount(newState.dropCount))
         enqueue(.setHold(newState.hold))
         enqueue(.setPlayPiece(nil))
-        enqueue(.setDropCount(newState.dropCount))
-        if let normalizedField = newDisplayField.normalizedDisplayField() {
-            trueDisplayField = normalizedField
-            // Animate line clear
-            // Set all rows as not filled first before line clear animation
-            let clearedRowIndices = (0 ..< newDisplayField.rows.count).filter { newDisplayField.rows[$0].isFilled }
-            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = false }
-            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
 
-            // Animate line clears (in-place)
-            clearedRowIndices.forEach { newDisplayField.rows[$0].isFilled = true }
-            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.lineClear)
+        if indicesChanged {
+            // Indices changed means that there is a line clear to animate
+            // Setting the new field triggers a row-blowing animation
+            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.lineHanging)
 
-            // Animate row rearrangement, bring in next piece
-            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
+            // After a short hang, get ready to play next piece
             enqueue(.setPlayPiece(newPlayPiece))
-            enqueue(.setDisplayField(normalizedField), delay: Constant.Timing.lineClear)
+            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
+
+            // ...and clamp rows at the same time
+            enqueue(.setDisplayField(trueDisplayField), delay: Constant.Timing.lineClamping)
         } else {
-            trueDisplayField = newDisplayField
-            // No line clear (so normalizing returns nil)
-            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
+            // No line clear, no animation except a little pause
             enqueue(.setPlayPiece(newPlayPiece))
-            enqueue(.setDisplayField(newDisplayField), delay: Constant.Timing.setPiece)
+            enqueue(.setNextPieceTypes(newState.nextPieceTypes))
+            enqueue(.setDisplayField(trueDisplayField), delay: Constant.Timing.setPiece)
         }
     }
 }

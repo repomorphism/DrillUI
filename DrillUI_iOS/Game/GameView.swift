@@ -21,7 +21,7 @@ struct GameView: View {
             VStack {
                 HoldPieceView(type: viewModel.hold)
                 Spacer()
-                Text("\(dropCount)")
+                Text("\(viewModel.dropCount)")
                     .font(.title)
                     .foregroundColor(.init(white: 0.9))
                     .padding()
@@ -36,13 +36,13 @@ struct GameView: View {
         // A 0.92 ratio is just about enough, extra widths go into spacers.
         // If not wide enough, one of them will shrink to incorrect size.
         .aspectRatio(0.925, contentMode: .fit)
-        .onChange(of: viewModel.dropCount) { dropCount in
-            if dropCount < self.dropCount {
-                self.dropCount = dropCount
-            } else {
+        .onChange(of: viewModel.dropCount) { newDropCount in
+            if newDropCount == self.dropCount + 1 {
                 withAnimation(.easeOut(duration: 1)) {
-                    self.dropCount = dropCount
+                    self.dropCount = newDropCount
                 }
+            } else {
+                self.dropCount = newDropCount
             }
         }
     }
