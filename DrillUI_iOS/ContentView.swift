@@ -24,14 +24,14 @@ struct ContentView: View {
     var controlView: some View {
         ControlView(controller: controller)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("Background Color"))
+            .background(Color("Background"))
     }
 
     var gameView: some View {
         GameView(viewModel: controller.viewModel)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .background(Color("Background Color"))
+            .background(Color("Background"))
             .ignoresSafeArea()
     }
 }
