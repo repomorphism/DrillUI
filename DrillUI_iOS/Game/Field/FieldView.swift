@@ -25,7 +25,7 @@ struct FieldView: View {
                 .padding(2)
             Rectangle()
                 .fill(.clear)
-                .border(Color(white: 0.75), width: 2.0)
+                .border(Color("Game Blocks Border"), width: 2.0)
             if let playPiece = playPiece {
                 // Live piece
                 PlayPieceView(piece: playPiece)

@@ -92,7 +92,7 @@ private extension ControlView {
                 Text(actionVisits.action.debugDescription)
                     .frame(maxWidth: .infinity)
                     .overlay(RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.gray, lineWidth: 1))
+                                .stroke(Color("Game Blocks Border"), lineWidth: 1))
                     .cornerRadius(16)
             }
         }
