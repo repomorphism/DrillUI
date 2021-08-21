@@ -61,7 +61,7 @@ public extension GameplayController.ViewModel {
             let intermediateNextPieceTypes = [nextPieceTypes[1]] + newState.nextPieceTypes.dropLast()
             enqueue(.setNextPieceTypes(intermediateNextPieceTypes))
         }
-        enqueue(.setDropCount(newState.dropCount))
+        enqueue(.setDropCount(newState.dropCount))  // triggers field sink effect
         enqueue(.setHold(newState.hold))
         enqueue(.setPlayPiece(nil))
 
