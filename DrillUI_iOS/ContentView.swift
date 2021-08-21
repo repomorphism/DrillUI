@@ -22,14 +22,11 @@ struct ContentView: View {
     }
 
     var controlView: some View {
-        ControlView(controlAction: handleControlAction,
-                    legalMoves: controller.legalMoves,
-                    isBotActive: controller.isActive)
+        ControlView(controller: controller)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 //            .background(.black)
 //            .background(Color.init(white: 0.9))
-//            .foregroundColor(.init(white: 0.9))
     }
 
     var gameView: some View {

@@ -16,7 +16,6 @@ struct ControlView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Spacer(minLength: 20)
             VStack(spacing: 4) {
                 Button("New Game (10)") { controller.startNewGame(garbageCount: 10) }
                 Button("New Game (18)") { controller.startNewGame(garbageCount: 18) }
@@ -44,7 +43,6 @@ struct ControlView: View {
 
                     Text("\(controller.step)")
                         .font(.system(size: 24))
-                        .foregroundColor(.init(white: 0.9))
                         .frame(maxWidth: .infinity)
 
                     Button {
@@ -78,7 +76,6 @@ struct ControlView: View {
                     }
                 }
                 .font(.system(.body, design: .monospaced))
-                .foregroundColor(.init(white: 0.9))
             }
         }
     }
