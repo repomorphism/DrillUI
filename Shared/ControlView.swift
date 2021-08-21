@@ -34,17 +34,23 @@ struct ControlView: View {
                 .padding()
                 HStack {
                     Button {
+                        controller.stepBackward()
                     } label: {
                         Image(systemName: "arrowtriangle.backward")
+                            .font(.system(size: 32))
                             .frame(maxWidth: .infinity)
                     }
+                    Text("\(controller.step)")
+                        .font(.system(size: 24))
+                        .foregroundColor(.init(white: 0.9))
                     Button {
+                        controller.stepForward()
                     } label: {
                         Image(systemName: "arrowtriangle.forward")
+                            .font(.system(size: 32))
                             .frame(maxWidth: .infinity)
                     }
                 }
-                .font(.system(size: 32))
             }
             .foregroundColor(.blue)
             ScrollView {

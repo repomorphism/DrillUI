@@ -16,7 +16,8 @@ public typealias ActionVisits = MCTSTree<GameState>.ActionVisits
 public final class GameplayController: ObservableObject {
 
     @Published public var legalMoves: [ActionVisits] = []
-    @Published public private(set) var isActive: Bool = false
+    @Published public var isActive: Bool = false
+    public var step: Int { recorder.step }
 
     public let viewModel: ViewModel = .init()
 
@@ -71,10 +72,33 @@ public extension GameplayController {
             viewModel.update(newState: newState, placed: piece)
         }
     }
+
+    func stepForward() {
+        stopThinking()
+        let snapshot = recorder.stepForward()
+        updateWithSnapshot(snapshot)
+    }
+
+    func stepBackward() {
+        stopThinking()
+        let snapshot = recorder.stepBackward()
+        updateWithSnapshot(snapshot)
+    }
 }
 
 
 private extension GameplayController {
+    func updateWithSnapshot(_ snapshot: (state: GameState, searchResult: [ActionVisits]?)) {
+        let state = snapshot.state
+        viewModel.reset(to: state)
+        bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        if let legalMoves = snapshot.searchResult {
+            self.legalMoves = legalMoves
+        } else {
+            Task { await updateLegalMoves() }
+        }
+    }
+
     func startBotAndTimer() {
         bot.startThinking()
         thinkingStartTime = .now
