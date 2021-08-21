@@ -11,28 +11,24 @@ import DrillAI
 
 
 struct ControlView: View {
-    enum ActionType {
-        case newGame(Int)
-        case botStartThinking
-        case botStopThinking
-        case play(Piece)
-    }
 
-    let controlAction: (ActionType) -> Void
-    let legalMoves: [ActionVisits]
-    let isBotActive: Bool
+    @ObservedObject var controller: GameplayController
 
     var body: some View {
         VStack(spacing: 8) {
             Spacer(minLength: 20)
             VStack(spacing: 4) {
-                Button("New Game (10)") { controlAction(.newGame(10)) }
-                Button("New Game (18)") { controlAction(.newGame(18)) }
+                Button("New Game (10)") { controller.startNewGame(garbageCount: 10) }
+                Button("New Game (18)") { controller.startNewGame(garbageCount: 18) }
                 Button {
-                    controlAction(isBotActive ? .botStopThinking : .botStartThinking)
+                    if controller.isActive {
+                        controller.stopThinking()
+                    } else {
+                        controller.startThinking()
+                    }
                 } label: {
-                    Image(systemName: isBotActive ? "stop.fill" : "play.fill")
-                        .foregroundColor(isBotActive ? .red : .green)
+                    Image(systemName: controller.isActive ? "stop.fill" : "play.fill")
+                        .foregroundColor(controller.isActive ? .red : .green)
                         .font(.system(size: 48))
                 }
                 .padding()
@@ -41,9 +37,9 @@ struct ControlView: View {
             ScrollViewReader { scrollView in
                 ScrollView {
                     VStack {
-                        ForEach(legalMoves, id: \.action.code) { actionVisits in
+                        ForEach(controller.legalMoves, id: \.action.code) { actionVisits in
                             Button {
-                                controlAction(.play(actionVisits.action))
+                                controller.play(actionVisits.action)
                             } label: {
                                 HStack {
                                     Text("\(actionVisits.visits)")
@@ -75,6 +71,6 @@ extension MCTSTree.ActionVisits: Equatable where State == GameState {
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView(controlAction: { _ in }, legalMoves: [], isBotActive: false)
+        ControlView(controller: GameplayController())
     }
 }
