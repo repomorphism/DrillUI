@@ -15,7 +15,7 @@ struct ControlView: View {
     @ObservedObject var controller: GameplayController
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 16) {
             Spacer(minLength: 20)
             VStack(spacing: 4) {
                 Button("New Game (10)") { controller.startNewGame(garbageCount: 10) }
@@ -32,6 +32,19 @@ struct ControlView: View {
                         .font(.system(size: 48))
                 }
                 .padding()
+                HStack {
+                    Button {
+                    } label: {
+                        Image(systemName: "arrowtriangle.backward")
+                            .frame(maxWidth: .infinity)
+                    }
+                    Button {
+                    } label: {
+                        Image(systemName: "arrowtriangle.forward")
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .font(.system(size: 32))
             }
             .foregroundColor(.blue)
             ScrollView {
