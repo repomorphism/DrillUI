@@ -21,6 +21,7 @@ public final class GameplayController: ObservableObject {
     public let viewModel: ViewModel = .init()
 
     private var bot: GeneratorBot<BCTSEvaluator>
+    private var recorder: GameRecorder
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
 
@@ -28,6 +29,7 @@ public final class GameplayController: ObservableObject {
         let state = GameState(garbageCount: 6, slidesAndTwists: false)
         viewModel.reset(to: state)
         self.bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        self.recorder = GameRecorder(initialState: state)
         Task { await updateLegalMoves() }
     }
 }
@@ -40,6 +42,7 @@ public extension GameplayController {
         let state = GameState(garbageCount: count, slidesAndTwists: false)
         viewModel.reset(to: state)
         bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        recorder = GameRecorder(initialState: state)
         Task { await updateLegalMoves() }
     }
 
@@ -59,6 +62,8 @@ public extension GameplayController {
 
         Task {
             let newState = await bot.advance(with: piece)
+            recorder.log(searchResult: legalMoves, action: piece, newState: newState)
+
             await updateLegalMoves()
             if isActive {
                 startBotAndTimer()
