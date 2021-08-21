@@ -25,7 +25,6 @@ struct ContentView: View {
             ControlView(controller: controller)
                 .frame(width: 300)
                 .background(.black)
-                .foregroundColor(.init(white: 0.9))
         }
         .background(Color(white: 0.05))
         .ignoresSafeArea()

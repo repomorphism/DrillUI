@@ -78,6 +78,7 @@ struct ControlView: View {
                     }
                 }
                 .font(.system(.body, design: .monospaced))
+                .foregroundColor(.init(white: 0.9))
             }
         }
     }
