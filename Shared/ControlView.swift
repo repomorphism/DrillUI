@@ -76,6 +76,7 @@ struct ControlView: View {
                     }
                 }
                 .font(.system(.body, design: .monospaced))
+                .padding()
             }
         }
     }
