@@ -19,66 +19,85 @@ struct ControlView: View {
             VStack(spacing: 4) {
                 Button("New Game (10)") { controller.startNewGame(garbageCount: 10) }
                 Button("New Game (18)") { controller.startNewGame(garbageCount: 18) }
-                Button {
-                    if controller.isActive {
-                        controller.stopThinking()
-                    } else {
-                        controller.startThinking()
-                    }
-                } label: {
-                    Image(systemName: controller.isActive ? "stop.fill" : "play.fill")
-                        .foregroundColor(controller.isActive ? .red : .green)
-                        .font(.system(size: 48))
-                }
-                .padding()
+                startStopButton
+                    .padding()
                 HStack {
-                    Button {
-                        controller.stepBackward()
-                    } label: {
-                        Image(systemName: "arrowtriangle.backward")
-                            .font(.system(size: 32))
-                            .frame(maxWidth: .infinity)
-                    }
-                    .disabled(!controller.canStepBackward)
-
-                    Text("\(controller.step)")
-                        .font(.system(size: 24))
-                        .frame(maxWidth: .infinity)
-
-                    Button {
-                        controller.stepForward()
-                    } label: {
-                        Image(systemName: "arrowtriangle.forward")
-                            .font(.system(size: 32))
-                            .frame(maxWidth: .infinity)
-                    }
-                    .disabled(!controller.canStepForward)
+                    stepBackwardButton
+                    stepText
+                    stepForwardButton
                 }
             }
 
             ScrollView {
                 VStack {
-                    ForEach(controller.legalMoves, id: \.action.code) { actionVisits in
-                        Button {
-                            controller.play(actionVisits.action)
-                        } label: {
-                            HStack {
-                                Text("\(actionVisits.visits)")
-                                Text(actionVisits.action.debugDescription)
-                                    .frame(maxWidth: .infinity)
-                                    .overlay(RoundedRectangle(cornerRadius: 16)
-                                                .stroke(Color.gray, lineWidth: 1))
-                                    .cornerRadius(16)
-                            }
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .padding(2)
-                    }
+                    ForEach(controller.legalMoves, id: \.action.code, content: moveButton)
                 }
                 .font(.system(.body, design: .monospaced))
                 .padding()
             }
         }
+    }
+}
+
+
+private extension ControlView {
+    private var startStopButton: some View {
+        Button {
+            if controller.isActive {
+                controller.stopThinking()
+            } else {
+                controller.startThinking()
+            }
+        } label: {
+            Image(systemName: controller.isActive ? "stop.fill" : "play.fill")
+                .foregroundColor(controller.isActive ? .red : .green)
+                .font(.system(size: 48))
+        }
+    }
+
+    private var stepBackwardButton: some View {
+        Button {
+            controller.stepBackward()
+        } label: {
+            Image(systemName: "arrowtriangle.backward")
+                .font(.system(size: 32))
+                .frame(maxWidth: .infinity)
+        }
+        .disabled(!controller.canStepBackward)
+    }
+
+    private var stepText: some View {
+        Text("\(controller.step)")
+            .font(.system(size: 24))
+            .frame(maxWidth: .infinity)
+    }
+
+    private var stepForwardButton: some View {
+        Button {
+            controller.stepForward()
+        } label: {
+            Image(systemName: "arrowtriangle.forward")
+                .font(.system(size: 32))
+                .frame(maxWidth: .infinity)
+        }
+        .disabled(!controller.canStepForward)
+    }
+
+    private func moveButton(actionVisits: ActionVisits) -> some View {
+        Button {
+            controller.play(actionVisits.action)
+        } label: {
+            HStack {
+                Text("\(actionVisits.visits)")
+                Text(actionVisits.action.debugDescription)
+                    .frame(maxWidth: .infinity)
+                    .overlay(RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.gray, lineWidth: 1))
+                    .cornerRadius(16)
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .padding(2)
     }
 }
 
