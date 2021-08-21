@@ -40,7 +40,7 @@ struct MinoCellView: View {
                 .padding(1)
                 .background(cellSecondaryColor)
                 .cornerRadius(2)
-                .saturation(0.6)    // Same, just desaturated
+                .saturation(0.5)    // Same, just desaturated
         }
     }
 

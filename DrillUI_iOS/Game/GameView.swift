@@ -21,10 +21,6 @@ struct GameView: View {
             VStack {
                 HoldPieceView(type: viewModel.hold)
                 Spacer()
-                Text("\(viewModel.dropCount)")
-                    .font(.title)
-                    .foregroundColor(.init(white: 0.9))
-                    .padding()
             }
             Spacer(minLength: 0)
             FieldView(displayField: viewModel.displayField, playPiece: viewModel.playPiece)
