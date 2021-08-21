@@ -43,6 +43,5 @@ struct HoldPieceView_Previews: PreviewProvider {
         }
             .frame(width: 300, height: 1000)
             .background(Color(white: 0.25))
-//            .previewLayout(.sizeThatFits)
     }
 }
