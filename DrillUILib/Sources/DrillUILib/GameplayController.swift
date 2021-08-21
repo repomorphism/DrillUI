@@ -18,6 +18,12 @@ public final class GameplayController: ObservableObject {
     @Published public var legalMoves: [ActionVisits] = []
     @Published public var isActive: Bool = false
     public var step: Int { recorder.step }
+    public var canStepForward: Bool {
+        recorder.step < recorder.lastStep
+    }
+    public var canStepBackward: Bool {
+        recorder.step > 0
+    }
 
     public let viewModel: ViewModel = .init()
 
@@ -75,14 +81,16 @@ public extension GameplayController {
 
     func stepForward() {
         stopThinking()
-        let snapshot = recorder.stepForward()
-        updateWithSnapshot(snapshot)
+        if let snapshot = recorder.stepForward() {
+            updateWithSnapshot(snapshot)
+        }
     }
 
     func stepBackward() {
         stopThinking()
-        let snapshot = recorder.stepBackward()
-        updateWithSnapshot(snapshot)
+        if let snapshot = recorder.stepBackward() {
+            updateWithSnapshot(snapshot)
+        }
     }
 }
 

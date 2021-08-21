@@ -40,9 +40,13 @@ struct ControlView: View {
                             .font(.system(size: 32))
                             .frame(maxWidth: .infinity)
                     }
+                    .disabled(!controller.canStepBackward)
+
                     Text("\(controller.step)")
                         .font(.system(size: 24))
                         .foregroundColor(.init(white: 0.9))
+                        .frame(maxWidth: .infinity)
+
                     Button {
                         controller.stepForward()
                     } label: {
@@ -50,9 +54,10 @@ struct ControlView: View {
                             .font(.system(size: 32))
                             .frame(maxWidth: .infinity)
                     }
+                    .disabled(!controller.canStepForward)
                 }
             }
-            .foregroundColor(.blue)
+
             ScrollView {
                 VStack {
                     ForEach(controller.legalMoves, id: \.action.code) { actionVisits in
