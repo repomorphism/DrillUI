@@ -34,28 +34,26 @@ struct ControlView: View {
                 .padding()
             }
             .foregroundColor(.blue)
-            ScrollViewReader { scrollView in
-                ScrollView {
-                    VStack {
-                        ForEach(controller.legalMoves, id: \.action.code) { actionVisits in
-                            Button {
-                                controller.play(actionVisits.action)
-                            } label: {
-                                HStack {
-                                    Text("\(actionVisits.visits)")
-                                    Text(actionVisits.action.debugDescription)
-                                        .frame(maxWidth: .infinity)
-                                        .overlay(RoundedRectangle(cornerRadius: 16)
-                                                    .stroke(Color.gray, lineWidth: 1))
-                                        .cornerRadius(16)
-                                }
+            ScrollView {
+                VStack {
+                    ForEach(controller.legalMoves, id: \.action.code) { actionVisits in
+                        Button {
+                            controller.play(actionVisits.action)
+                        } label: {
+                            HStack {
+                                Text("\(actionVisits.visits)")
+                                Text(actionVisits.action.debugDescription)
+                                    .frame(maxWidth: .infinity)
+                                    .overlay(RoundedRectangle(cornerRadius: 16)
+                                                .stroke(Color.gray, lineWidth: 1))
+                                    .cornerRadius(16)
                             }
-                            .buttonStyle(PlainButtonStyle())
-                            .padding(2)
                         }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(2)
                     }
-                    .font(.system(.body, design: .monospaced))
                 }
+                .font(.system(.body, design: .monospaced))
             }
         }
     }
