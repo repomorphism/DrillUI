@@ -24,7 +24,7 @@ struct NextPiecesView: View {
                 Rectangle()
                     .fill(.clear)
                     .aspectRatio(4 / 15, contentMode: .fit)
-                    .border(Color(white: 0.75), width: 1.0)
+                    .border(Color("Game Blocks Border"), width: 1.0)
                     .padding(1)
                 VStack(spacing: 0) {
                     ForEach(Array(nextPieceTypes.enumerated()), id: \.0) { (index, type) in

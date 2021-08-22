@@ -22,7 +22,7 @@ struct HoldPieceView: View {
                 Rectangle()
                     .fill(.clear)
                     .aspectRatio(4 / 3, contentMode: .fit)
-                    .border(Color(white: 0.75), width: 1.0)
+                    .border(Color("Game Blocks Border"), width: 1.0)
                     .padding(1)
                 if let type = type {
                     PieceView(piece: Piece(type: type, x: 0, y: 0, orientation: .up))
@@ -43,6 +43,5 @@ struct HoldPieceView_Previews: PreviewProvider {
         }
             .frame(width: 300, height: 1000)
             .background(Color(white: 0.25))
-//            .previewLayout(.sizeThatFits)
     }
 }

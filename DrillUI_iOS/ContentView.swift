@@ -14,20 +14,25 @@ struct ContentView: View {
     @EnvironmentObject var controller: GameplayController
 
     var body: some View {
-        HStack(spacing: 0) {
-            Spacer(minLength: 0)
-            VStack {
-                GameView(viewModel: controller.viewModel)
-                Spacer(minLength: 0)
-            }
-            .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-            Spacer(minLength: 0)
-            ControlView(controller: controller)
-                .frame(width: 300)
-                .background(.black)
+        NavigationView {
+            controlView
+                .navigationTitle("DrillUI")
+            gameView
         }
-        .background(Color(white: 0.05))
-        .ignoresSafeArea()
+    }
+
+    var controlView: some View {
+        ControlView(controller: controller)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("Background"))
+    }
+
+    var gameView: some View {
+        GameView(viewModel: controller.viewModel)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding()
+            .background(Color("Background"))
+            .ignoresSafeArea()
     }
 }
 

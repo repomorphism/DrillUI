@@ -28,7 +28,7 @@ struct GridLinesView: View {
                         path.addLine(to: .init(x: width, y: y))
                     }
                 }
-                .stroke(Color.init(white: 1, opacity: 0.05), lineWidth: 1)
+                .stroke(Color("Grid Line"), lineWidth: 1)
             })
     }
 }
