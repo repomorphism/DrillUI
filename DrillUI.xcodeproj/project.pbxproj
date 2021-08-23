@@ -66,6 +66,7 @@
 		DA1F5B9926B829A100FC8F70 /* FieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldView.swift; sourceTree = "<group>"; };
 		DA1F5B9B26B8346E00FC8F70 /* GridLinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLinesView.swift; sourceTree = "<group>"; };
 		DA29A24D26C7D1CC00BA8D74 /* SinkEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkEffect.swift; sourceTree = "<group>"; };
+		DA38018F26D3CB3100575458 /* DrillUI-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DrillUI-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DA5A92D326BBE79D008FAB33 /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
 		DA5FDFD426B07BF9002A8354 /* DrillUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrillUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5FDFD726B07BF9002A8354 /* DrillUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillUIApp.swift; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 		DA14BB9A26B15E2700BBB4FE /* DrillUI_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DA38018F26D3CB3100575458 /* DrillUI-iOS-Info.plist */,
 				DA9D60AA26CE8FAB00A79996 /* README.md */,
 				DABBD87926B9D0C0001B0E28 /* ContentView.swift */,
 				DA14BB9B26B15E2700BBB4FE /* DrillUI_iOSApp.swift */,
@@ -489,12 +491,14 @@
 				DEVELOPMENT_TEAM = C3TKTY8GP6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DrillUI-iOS-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -521,12 +525,14 @@
 				DEVELOPMENT_TEAM = C3TKTY8GP6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DrillUI-iOS-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
