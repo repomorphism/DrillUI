@@ -19,7 +19,7 @@ public final class GameplayController: ObservableObject {
     @Published public var isActive: Bool = false
     public var step: Int { recorder.step }
     public var canStepForward: Bool {
-        recorder.step < recorder.lastStep
+        !recorder.isAtLastStep
     }
     public var canStepBackward: Bool {
         recorder.step > 0
