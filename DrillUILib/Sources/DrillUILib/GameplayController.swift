@@ -27,7 +27,17 @@ public final class GameplayController: ObservableObject {
 
     public let viewModel: ViewModel = .init()
 
-    private var bot: GeneratorBot<BCTSEvaluator>
+    private var bot: GeneratorBot<DrillModelEvaluator>
+    private let evaluator: DrillModelEvaluator = {
+        // Issue getting the right location of the ML model, need to specify
+        // subdirectory
+        let modelURL = Bundle(for: DrillModelEvaluator.self)
+            .url(forResource: "DrillModelCoreML",
+                 withExtension: "mlmodelc",
+                 subdirectory: "DrillAI_DrillAI.bundle")!
+        return try! DrillModelEvaluator(modelURL: modelURL)
+    }()
+
     private var recorder: GameRecorder
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
@@ -35,7 +45,7 @@ public final class GameplayController: ObservableObject {
     public init() {
         let state = GameState(garbageCount: 6, slidesAndTwists: false)
         viewModel.reset(to: state)
-        self.bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
         self.recorder = GameRecorder(initialState: state)
         Task { await updateLegalMoves() }
     }
@@ -48,7 +58,7 @@ public extension GameplayController {
 
         let state = GameState(garbageCount: count, slidesAndTwists: false)
         viewModel.reset(to: state)
-        bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        bot = GeneratorBot(initialState: state, evaluator: evaluator)
         recorder = GameRecorder(initialState: state)
         Task { await updateLegalMoves() }
     }
@@ -99,7 +109,7 @@ private extension GameplayController {
     func updateWithSnapshot(_ snapshot: (state: GameState, searchResult: [ActionVisits]?)) {
         let state = snapshot.state
         viewModel.reset(to: state)
-        bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        bot = GeneratorBot(initialState: state, evaluator: evaluator)
         if let legalMoves = snapshot.searchResult {
             self.legalMoves = legalMoves
         } else {
@@ -151,7 +161,7 @@ private extension GameplayController {
         let ratio = Double(topVisits) / Double(totalN + 1)
         let bonus = Int(max(0, ratio - 0.5) * Double(topVisits))
 
-        if totalN + bonus > 40_000 {
+        if totalN + bonus > 10_000 {
             return true
         }
 
