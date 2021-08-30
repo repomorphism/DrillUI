@@ -30,7 +30,7 @@ public final class GameplayController: ObservableObject {
     private var bot: GeneratorBot<DrillModelEvaluator>
     private let evaluator: DrillModelEvaluator = {
         // Issue getting the right location of the ML model, need to specify
-        // subdirectory
+        // the AI module's bundle as subdirectory
         let modelURL = Bundle(for: DrillModelEvaluator.self)
             .url(forResource: "DrillModelCoreML",
                  withExtension: "mlmodelc",
@@ -43,7 +43,7 @@ public final class GameplayController: ObservableObject {
     private var thinkingStartTime: Date = .now
 
     public init() {
-        let state = GameState(garbageCount: 6, slidesAndTwists: false)
+        let state = GameState(garbageCount: 6, slidesAndTwists: true)
         viewModel.reset(to: state)
         self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
         self.recorder = GameRecorder(initialState: state)
@@ -56,7 +56,7 @@ public extension GameplayController {
     func startNewGame(garbageCount count: Int) {
         stopThinking()
 
-        let state = GameState(garbageCount: count, slidesAndTwists: false)
+        let state = GameState(garbageCount: count, slidesAndTwists: true)
         viewModel.reset(to: state)
         bot = GeneratorBot(initialState: state, evaluator: evaluator)
         recorder = GameRecorder(initialState: state)
