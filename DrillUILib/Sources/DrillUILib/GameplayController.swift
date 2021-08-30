@@ -80,12 +80,29 @@ public extension GameplayController {
         Task {
             let newState = await bot.advance(with: piece)
             recorder.log(searchResult: legalMoves, action: piece, newState: newState)
+            viewModel.update(newState: newState, placed: piece)
+
+            // Game done or game over: Save game and restart
+            if newState.garbageRemaining == 0 || newState.field.height > 18 {
+                do {
+                    try recorder.exportToDocumentFolder()
+                } catch {
+                    print(error)
+                    fatalError()
+                }
+
+                await Task.sleep(2_000_000_000)
+                await MainActor.run { startNewGame(garbageCount: newState.garbageTotal) }
+
+                await Task.sleep(1_000_000_000)
+                await MainActor.run { startThinking() }
+                return
+            }
 
             await updateLegalMoves()
             if isActive {
                 startBotAndTimer()
             }
-            viewModel.update(newState: newState, placed: piece)
         }
     }
 
