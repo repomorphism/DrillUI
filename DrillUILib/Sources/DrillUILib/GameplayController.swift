@@ -27,15 +27,25 @@ public final class GameplayController: ObservableObject {
 
     public let viewModel: ViewModel = .init()
 
-    private var bot: GeneratorBot<BCTSEvaluator>
+    private var bot: GeneratorBot<DrillModelEvaluator>
+    private let evaluator: DrillModelEvaluator = {
+        // Issue getting the right location of the ML model, need to specify
+        // the AI module's bundle as subdirectory
+        let modelURL = Bundle(for: DrillModelEvaluator.self)
+            .url(forResource: "DrillModelCoreML",
+                 withExtension: "mlmodelc",
+                 subdirectory: "DrillAI_DrillAI.bundle")!
+        return try! DrillModelEvaluator(modelURL: modelURL)
+    }()
+
     private var recorder: GameRecorder
     private var timerSubscription: Cancellable?
     private var thinkingStartTime: Date = .now
 
     public init() {
-        let state = GameState(garbageCount: 6, slidesAndTwists: false)
+        let state = GameState(garbageCount: 6, slidesAndTwists: true)
         viewModel.reset(to: state)
-        self.bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        self.bot = GeneratorBot(initialState: state, evaluator: evaluator)
         self.recorder = GameRecorder(initialState: state)
         Task { await updateLegalMoves() }
     }
@@ -46,9 +56,9 @@ public extension GameplayController {
     func startNewGame(garbageCount count: Int) {
         stopThinking()
 
-        let state = GameState(garbageCount: count, slidesAndTwists: false)
+        let state = GameState(garbageCount: count, slidesAndTwists: true)
         viewModel.reset(to: state)
-        bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        bot = GeneratorBot(initialState: state, evaluator: evaluator)
         recorder = GameRecorder(initialState: state)
         Task { await updateLegalMoves() }
     }
@@ -70,12 +80,29 @@ public extension GameplayController {
         Task {
             let newState = await bot.advance(with: piece)
             recorder.log(searchResult: legalMoves, action: piece, newState: newState)
+            viewModel.update(newState: newState, placed: piece)
+
+            // Game done or game over: Save game and restart
+            if newState.garbageRemaining == 0 || newState.field.height > 18 {
+                do {
+                    try recorder.exportToDocumentFolder()
+                } catch {
+                    print(error)
+                    fatalError()
+                }
+
+                await Task.sleep(2_000_000_000)
+                await MainActor.run { startNewGame(garbageCount: newState.garbageTotal) }
+
+                await Task.sleep(1_000_000_000)
+                await MainActor.run { startThinking() }
+                return
+            }
 
             await updateLegalMoves()
             if isActive {
                 startBotAndTimer()
             }
-            viewModel.update(newState: newState, placed: piece)
         }
     }
 
@@ -99,7 +126,7 @@ private extension GameplayController {
     func updateWithSnapshot(_ snapshot: (state: GameState, searchResult: [ActionVisits]?)) {
         let state = snapshot.state
         viewModel.reset(to: state)
-        bot = GeneratorBot(initialState: state, evaluator: BCTSEvaluator())
+        bot = GeneratorBot(initialState: state, evaluator: evaluator)
         if let legalMoves = snapshot.searchResult {
             self.legalMoves = legalMoves
         } else {
@@ -140,18 +167,21 @@ private extension GameplayController {
             return true
         }
 
-        // Condition 1: Thought for over 5 seconds
-        if thinkingStartTime.timeIntervalSinceNow < -5 {
-            return true
-        }
-
-        // Condition 2: Thought "enough," bonus for "decisiveness"
+        // Condition 1: Haven't thought enough, or more than enough
+        // Bonus for "decisiveness"
         let totalN = legalMoves.map(\.visits).reduce(0, +)
         let topVisits = legalMoves[0].visits
         let ratio = Double(topVisits) / Double(totalN + 1)
         let bonus = Int(max(0, ratio - 0.5) * Double(topVisits))
 
-        if totalN + bonus > 40_000 {
+        if totalN + bonus < 3_000 {
+            return false
+        } else if totalN + bonus > 6_000 {
+            return true
+        }
+
+        // Condition 2: Thought for more than 5 seconds
+        if thinkingStartTime.timeIntervalSinceNow < -5 {
             return true
         }
 
