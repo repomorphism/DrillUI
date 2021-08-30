@@ -167,18 +167,21 @@ private extension GameplayController {
             return true
         }
 
-        // Condition 1: Thought for over 5 seconds
-        if thinkingStartTime.timeIntervalSinceNow < -5 {
-            return true
-        }
-
-        // Condition 2: Thought "enough," bonus for "decisiveness"
+        // Condition 1: Haven't thought enough, or more than enough
+        // Bonus for "decisiveness"
         let totalN = legalMoves.map(\.visits).reduce(0, +)
         let topVisits = legalMoves[0].visits
         let ratio = Double(topVisits) / Double(totalN + 1)
         let bonus = Int(max(0, ratio - 0.5) * Double(topVisits))
 
-        if totalN + bonus > 10_000 {
+        if totalN + bonus < 3_000 {
+            return false
+        } else if totalN + bonus > 6_000 {
+            return true
+        }
+
+        // Condition 2: Thought for more than 5 seconds
+        if thinkingStartTime.timeIntervalSinceNow < -5 {
             return true
         }
 
